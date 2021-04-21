@@ -34,7 +34,8 @@ export default
      },
      errors:{
        email:'',
-       password:''
+       password:'',
+       message:'',
      }
     }
   }),
@@ -47,8 +48,13 @@ export default
         
                await this.$store.dispatch('login',this.user) 
                 const res = await this.$store.getters['user']
+                if(res.user)
+                {
                 localStorage.setItem('AuthUser', JSON.stringify(res))
-                if(localStorage.getItem('AuthUser') !== null)  this.$router.push('/')
+                this.$router.push('/')
+                }
+                this.errors.message = "Apparently there is no such user"
+                
                 
          
      

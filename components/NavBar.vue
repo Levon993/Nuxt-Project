@@ -37,7 +37,7 @@
          if(localStorage.getItem('AuthUser') !== null)
          {
            this.user = JSON.parse(localStorage.getItem('AuthUser'))
-           console.log(this.user)
+           
          }
        }
      }

@@ -9,7 +9,6 @@
       <th>User</th>
       <th>Status</th>
       <th>created at</th>
-      <th>Sum</th>
       <th></th>
     </tr>
   </thead>
@@ -18,7 +17,7 @@
       <td class="table_item">{{order.name}}</td>
       <td class="table_item" >{{order.stataus == 0 ? 'Active' : 'Old'}}</td>
       <td class="table_item">{{new Date(order.created_at) }}</td>
-      <td class="table_item">{{order.stataus == 0 ? 'Active' : 'Old'}}</td>
+      
       <td class="table_item">{{order.sum}}</td>
       <td class="table_item"><button class="change_button">Change</button></td>
     </tr>
@@ -30,14 +29,16 @@
 </template>
 
 <script>
-export default {
 
+export default {
+middleware:['auth'],
    async fetch({store})
    {
   
       if (store.getters['orders/orders'].length === 0)
       {
             
+       
          await store.dispatch('orders/getOrders')
       
       }
@@ -50,11 +51,19 @@ export default {
      }
    }
    ),
+   mounted(){
+    
+   },
   
 
     computed:{
      orders(){
-      return this.$store.getters['orders/orders']
+       console.log('pidor')
+        this.$store.dispatch('auth/getAuth')
+        const user = this.$store.getters['auth/auth']
+    
+    
+        return this.$store.getters['orders/orders']
       
      
      }

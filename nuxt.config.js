@@ -1,3 +1,5 @@
+const env = require('dotenv').config();
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -41,7 +43,10 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/axios'
   ],
-
+  
+  env: {
+    baseUrl:env.baseURL || 'url' 
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "http://shop.laravel.loc"

@@ -17,7 +17,7 @@ export const state = () =>({
             commit('setUser', user)
         }catch(e)
         {
-            console.log(e)
+            
         }
     
     }

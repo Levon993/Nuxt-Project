@@ -12,6 +12,7 @@ export const state = () =>({
   export const actions = {
     async getOrders({commit}){
   const orders = await  this.$axios.$get('/api/orders/index')
+  
       commit('setOrder', orders)
     }
   }

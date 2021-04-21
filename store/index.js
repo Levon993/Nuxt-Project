@@ -1,7 +1,7 @@
 export const state = () =>({
-  user: {
+  user: {},
+  auth:[]
 
-  }
 })
 
 export const mutations = {
@@ -9,6 +9,12 @@ export const mutations = {
   {
     state.user = user
   },
+  setAuth(state, auth)
+  {
+    
+    state.auth = auth
+  },
+  
   clearUser(state)
   {
     state.user = null
@@ -17,21 +23,32 @@ export const mutations = {
 }
 
 export const actions = {
-  nuxtServerInit({dispatch})
+async nuxtServerInit({dispatch, getters})
   {
-   // console.log('here nuxt start')
+   await dispatch('auth/getAuth')
+  const res = await getters['auth/auth']
+      
+   
+    this.$axios.defaults.headers.common['Authorization'] = `Bearer ${res['token']}`;
+    
   },
 
    login({commit}, data){
      const user = this.$axios.$post('/api/login',data)
      commit('setUser', user)
   },
-  logout({commit}){
+  auth({commit}){
+    const auth = this.$axios.$post('/api/auth/user')
+
+    commit('setAuth', auth)
+ },
+   logout({commit}){
     this.$axios.$post('/api/logout')
     commit('clearUser')
-  }
+   }
 }
 
 export const getters = {
-  user: s => s.user
-}
+  user: s => s.user,
+  auth: s =>s.auth
+ }

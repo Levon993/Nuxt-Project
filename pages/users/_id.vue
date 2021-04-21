@@ -7,7 +7,7 @@
   export default {
     validate({params})
     {
-      console.log(params.id)
+      
       return true
     },
   async  asyncData({$axios,params})
