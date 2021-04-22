@@ -3,12 +3,13 @@
     <header class="header">
       <div class="logo">Admin Panel</div>
       <div class="links">
-      <div class="link"><nuxt-link  exect no-prefetch active-class to="/">Home</nuxt-link></div>
-      <div class="link"> <nuxt-link active-class to="/about">About</nuxt-link></div>
-      <div class="link"> <nuxt-link active-class to="/users">Users</nuxt-link></div>
-      <div class="link" ><a href="#"  @click.prevent="logout">Logout</a> </div>
+      <div class="link"><nuxt-link  exect no-prefetch active-class to="/">{{$t('home')}}</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/about">{{$t('poducts')}}</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/users">{{$t('welcome')}}</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/users">{{$t('brands')}}</nuxt-link></div>
+      <div class="link" ><a href="#"  @click.prevent="logout">{{$t('logout')}}</a> </div>
       </div>
-      <div class="user"><p class="auth">{{user.user}}</p> <p>Working Now</p></div>
+      <div class="user"><p class="auth">{{user.user}}</p> <p>{{$t('working')}}</p></div>
     </header>
   </div>
 </template>

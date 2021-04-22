@@ -37,13 +37,37 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'nuxt-i18n'
   ],
-  
+  i18n: {
+    locales: ['en', 'ru'],
+    defaultLocale: 'ru',
+    vueI18n: {
+      fallbackLocale: 'en',
+      messages: {
+        en: {
+          welcome: 'Welcome',
+          home: 'Home',
+          logout: 'Logout',
+          poducts: 'Products',
+          brands: 'Brands',
+          working:'Working Now'
+        },
+        ru: {
+          welcome: 'Привет',
+          home: 'Главная',
+          logout: 'Выйти',
+          poducts: 'Продукты',
+          brands: 'Бренды',
+          working:'Сейчас в сети'
+        }
+
+    }
+  }
+  },
   env: {
     baseUrl:env.baseURL || 'url' 
   },
