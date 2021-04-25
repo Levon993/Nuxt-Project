@@ -26,6 +26,7 @@
 
     mounted() {
       this.getUser()
+      
     },
 
     methods:{
