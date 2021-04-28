@@ -1,7 +1,7 @@
 <template>
  <div class="orders_page_body">
    <div class="chart">
-   <bar-chart
+   <bar-chart v-show="show"
         :data="barChartData"
         :options="barChartOptions"
         :width="1200"
@@ -24,7 +24,7 @@
           <td class="table_item" >{{order.stataus == 0 ? 'Active' : 'Old'}}</td>
           <td class="table_item">{{new Date(order.created_at) }}</td>
 
-          <td class="table_item">{{order.sum}}</td>
+          <td class="table_item">{{order.sum}}</td><td class="table_item"><span :class="{currency_danger:(order.sum > 700)}" class="currency">{{order.sum}}$</span> </td>
           <td class="table_item"><button class="change_button">Change</button></td>
         </tr>
       </tbody>
@@ -62,22 +62,27 @@ title: "Orders",
     BarChart,
 
     },
-   async fetch({store})
-   {
-
+   async asyncData({store,req})
+  {
+     // try{
+       if(!req.headers)
+       {
+         console.log('hellp');
+         this.$router.push('/')
+       }
+         const res =  req.headers.cookie
+        let token  = res.split('=')[2]
       if (store.getters['orders/orders'].length === 0)
       {
-
         const page = 1
+       await store.dispatch('orders/getOrders',{page: page, token: token})
+     }
+    //  }catch(e)
+     // {
 
+     // }
 
-         await store.dispatch('orders/getOrders',page)
-
-
-
-      }
-
-   },
+  },
    data:(()=>
    {
      return{
@@ -91,21 +96,7 @@ title: "Orders",
 
         ],
         datasets: [
-          {
-            label: 'Visits',
-            data: [10, 15, 20, 30, 40, 50, 60, 70, 34, 45, 11, 78, 45],
-            backgroundColor: '#003f5c',
-          },
-          {
-            label: 'Pages Views',
-            data: [30, 24, 57, 23, 68, 72, 25, 64, 133, 143, 165, 33, 56],
-            backgroundColor: '#2f4b7c',
-          },
-          {
-            label: 'Users',
-            data: [45, 65, 30, 53, 34, 35, 26, 37, 34, 45, 67, 87, 98],
-            backgroundColor: '#665191',
-          },
+         
         ],
       },
       barChartOptions: {
@@ -145,6 +136,7 @@ title: "Orders",
      }
    }
    ),
+
    mounted(){
      this.getorders()
      this.chartGraphic()
@@ -153,24 +145,57 @@ title: "Orders",
 
     methods:
     {
-   async  getResults(page = 1) {
-     const {access_token} = JSON.parse(localStorage.getItem('AuthUser'))
-     this.$axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      await this.$store.dispatch('orders/getOrders',page)
-       this.orders = await this.$store.getters['orders/orders']
+     async  getResults(page = 1) {
+       try{
+          const {access_token} = JSON.parse(localStorage.getItem('AuthUser'))
+          await this.$store.dispatch('orders/getOrders',{page:page, token:access_token})
+          this.orders = await this.$store.getters['orders/orders']
+          this.chartGraphic(this.orders)
+    }catch(e)
+       {
+
+       }
+      
       },
 
 
      async getorders(){
+     try{
         this.orders = await this.$store.getters['orders/orders']
-     },
-
-     async chartGraphic()
+       this.chartGraphic(this.orders)
+    }catch(e)
+     {
+       
+     }
+    },
+     
+     async chartGraphic(orders)
           {
+            this.show = false
+              this.barChartData.labels = null
+              this.barChartData.datasets = null 
+           
+             if(this.orders.data.length)
+              
+             this.barChartData.labels = orders.data.map(order =>
+             
+             { 
+                let today  = new Date(order.created_at).toLocaleDateString();
+                      return today
+             })
+             this.barChartData.datasets = orders.data.map(order =>
+             {
+               return {
+                 label: 'Order sum',
+                 data: [order.sum],
+                 backgroundColor: '#003f5c',
+                  }
+             })
+               
 
-             if(this.orders.length)
-             this.barChartData.labels = await this.orders.data.map(order => order.created_at)
+             this.show = true
           }
+          
     }
 }
 </script>
@@ -202,7 +227,78 @@ title: "Orders",
    margin-top: 5px;
    border-bottom: 1px solid silver;
 }
+.currency
+{
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  padding: 3px;
+  border-radius: 8px;
+    font-weight: 700;
+  background-color: #246068;
+  color: white;
+  box-shadow: 2px 2px 2px 1px black;
+}
+@keyframes danger_currency_anim {   
+  0% {     
+   transform: rotate(-30deg);  
+  }  
+  25% {     
+   transform: rotate(-20deg);  
+  }   
+  50% {     
+   
+  } 
+  70% {
+    transform: rotate(20deg);
+   }
+   100%{
+     transform: rotate(30deg);
+   }
+}
 
+@-moz-keyframes danger_currency_anim {   
+  0% {     
+   transform: rotate(-30deg);  
+  }   
+  50% {     
+    transform: rotate(0deg); 
+  } 
+  100% {
+    transform: rotate(30deg);
+   }
+}
+@-webkit-keyframes danger_currency_anim {   
+ 0% {     
+   transform: rotate(-30deg);  
+  }   
+  50% {     
+    transform: rotate(0deg); 
+  } 
+  100% {
+    transform: rotate(30deg);
+   }
+}
+.currency_danger
+{
+     -webkit-animation: danger_currency_anim 500ms ; /* Safari 4+ */
+     -moz-animation: danger_currency_anim 500ms ; /* Fx 5+ */
+     -o-animation: danger_currency_anim 500ms ; /* Opera 12+ */
+      animation: danger_currency_anim  500ms  ;
+    animation-delay: 300ms;
+     display: inline-block;
+     width: 50px;
+     height: 25px;
+     text-align: center;
+    padding: 3px;
+     border-radius: 8px;
+     background-color: red;
+     font-weight: 700;
+     color: rgb(19, 16, 16);
+     box-shadow: 2px 2px 2px 1px black;
+ 
+}
 
 .change_button
 {
@@ -235,6 +331,7 @@ title: "Orders",
   justify-content: center;
   align-items: center;
   box-shadow: 2px 2px 2px 1px black;
+  border-radius: 6px;
 }
 .paginate a
 {

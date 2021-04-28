@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 export const state = () =>({
     orders: []
   })
@@ -10,9 +11,11 @@ export const state = () =>({
   }
 
   export const actions = {
-    async getOrders({commit},page){
-
-  const orders = await  this.$axios.$post('/api/orders/index?page=' + page)
+    async getOrders({commit},params){
+     
+     console.log('store',params);
+      this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
+      const orders = await  this.$axios.$post('/api/orders/index?page=' +params.page)
 
       commit('setOrder', orders)
     }

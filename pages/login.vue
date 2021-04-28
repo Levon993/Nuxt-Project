@@ -21,7 +21,7 @@
  </div>
 </template>
 <script>
-
+import Cookies from 'js-cookie'
 export default 
 {
   layout:'login',
@@ -42,16 +42,20 @@ export default
   methods:{
      async login()
    {
+     Cookies.remove('token')
         if(this.user.confirm && this.user.confirm.trim() !== this.user.password.trim() ) return this.errors.confirm = 'confirm error'
           
           if(this.user.password.trim() && this.user.password.length < 6 ) return this.errors.password = 'Minimal password length 6 chars'
         
                await this.$store.dispatch('login',this.user) 
                 const res = await this.$store.getters['user']
+                const token= res.access_token
+       
+                Cookies.set('token', token)
                 if(res.user)
                 {
                 localStorage.setItem('AuthUser', JSON.stringify(res))
-                this.$router.push('/')
+                this.$router.push(`/admin`)
                 }
                 this.errors.message = "Apparently there is no such user"
                 

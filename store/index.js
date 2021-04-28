@@ -25,9 +25,7 @@ export const mutations = {
 export const actions = {
 async nuxtServerInit({dispatch, getters})
   {
-    await dispatch('auth/getAuth')
-    const res = await getters['auth/auth']
-    this.$axios.defaults.headers.common['Authorization'] = `Bearer ${res['token']}`;
+   
     
   },
 
