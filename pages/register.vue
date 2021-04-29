@@ -60,7 +60,7 @@ export default
             await this.$store.dispatch('register/register',this.user)
          
          const res =  await this.$store.getters['register/user']
-               console.log('user',res.user);
+            
          if(res.user.id)
          {
             this.$router.push('/login')

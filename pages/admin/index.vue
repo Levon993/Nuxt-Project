@@ -1,5 +1,7 @@
 <template>
+<no-ssr>
  <div class="orders_page_body">
+   
    <div class="chart">
    <bar-chart v-show="show"
         :data="barChartData"
@@ -8,6 +10,7 @@
         :heigth="650"
       />
       </div>
+  
    <div class="order_list">
     <table>
       <thead>
@@ -39,13 +42,14 @@
    </div>
 
  </div>
+ </no-ssr>
 </template>
 
 <script>
 import BarChart  from '@/components/chart.js'
 
 export default {
-middleware:['auth'],
+middleware:['admin', 'auth'],
 head()
 {
   return{
@@ -62,25 +66,19 @@ title: "Orders",
     BarChart,
 
     },
-   async asyncData({store,req})
+   async asyncData({app,store})
   {
-     // try{
-       if(!req.headers)
-       {
-         console.log('hellp');
-         this.$router.push('/')
-       }
-         const res =  req.headers.cookie
-        let token  = res.split('=')[2]
+     try{
+        const token = app.$cookiz.get('token')
       if (store.getters['orders/orders'].length === 0)
       {
-        const page = 1
-       await store.dispatch('orders/getOrders',{page: page, token: token})
+         const page = 1
+         await store.dispatch('orders/getOrders',{page: page, token: token})
      }
-    //  }catch(e)
-     // {
+      }catch(e)
+        {
 
-     // }
+      }
 
   },
    data:(()=>
@@ -150,6 +148,7 @@ title: "Orders",
           const {access_token} = JSON.parse(localStorage.getItem('AuthUser'))
           await this.$store.dispatch('orders/getOrders',{page:page, token:access_token})
           this.orders = await this.$store.getters['orders/orders']
+          
           this.chartGraphic(this.orders)
     }catch(e)
        {
@@ -160,13 +159,14 @@ title: "Orders",
 
 
      async getorders(){
-     try{
+     //try{
         this.orders = await this.$store.getters['orders/orders']
+        console.log(this.orders);
        this.chartGraphic(this.orders)
-    }catch(e)
-     {
+    //}catch(e)
+    // {
        
-     }
+    // }
     },
      
      async chartGraphic(orders)
@@ -180,8 +180,8 @@ title: "Orders",
              this.barChartData.labels = orders.data.map(order =>
              
              { 
-                let today  = new Date(order.created_at).toLocaleDateString();
-                      return today
+                let created_at  = new Date(order.created_at).toLocaleDateString();
+               return created_at
              })
              this.barChartData.datasets = orders.data.map(order =>
              {

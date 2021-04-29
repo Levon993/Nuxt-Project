@@ -25,7 +25,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-   {src:'@/plugins/pagination.js', ssr:false}
+   {src:'@/plugins/pagination.js', ssr:false},
+   {src:'@/plugins/setCookie.js', ssr:false}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -40,7 +41,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    'nuxt-i18n'
+    'nuxt-i18n',
+    ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
   i18n: {
     locales: ['en', 'ru'],

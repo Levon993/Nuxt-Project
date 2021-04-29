@@ -17,8 +17,9 @@ export const state = () =>({
   
   export const actions = {
      
-    getAuth({commit}){
-      const auth = this.$axios.$post('/api/test/user')
+    getAuth({commit}, token){
+      const auth = this.$axios.$post('/api/get/user')
+      this.$axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       commit('setAuth', auth)
    },
     
