@@ -56,7 +56,14 @@ export default {
           logout: 'Logout',
           poducts: 'Products',
           brands: 'Brands',
-          working:'Working Now'
+          working:'Working Now',
+          title:'Title',
+          brand:"Brand",
+          category:"Category",
+          price:'Price',
+          old_price:'Old price',
+          status:'Status',
+          created_at:"Created at"
         },
         ru: {
           welcome: 'Привет',
@@ -64,7 +71,14 @@ export default {
           logout: 'Выйти',
           poducts: 'Продукты',
           brands: 'Бренды',
-          working:'Сейчас в сети'
+          working:'Сейчас в сети',
+          title:'Название',
+          brand:"Брэнд",
+          category:"Категория",
+          price:'Цена',
+          old_price:'Старая Цена',
+          status:'Статус',
+          created_at:"Добавлено (чсл)"
         }
 
     }

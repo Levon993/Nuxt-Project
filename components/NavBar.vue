@@ -4,7 +4,7 @@
       <div class="logo">Admin Panel</div>
       <div class="links">
       <div class="link"><nuxt-link  exect no-prefetch active-class to="/">{{$t('home')}}</nuxt-link></div>
-      <div class="link"> <nuxt-link active-class to="/about">{{$t('poducts')}}</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/admin/products">{{$t('poducts')}}</nuxt-link></div>
       <div class="link"> <nuxt-link active-class to="/users">{{$t('welcome')}}</nuxt-link></div>
       <div class="link"> <nuxt-link active-class to="/users">{{$t('brands')}}</nuxt-link></div>
       <div class="link" ><a href="#"  @click.prevent="logout">{{$t('logout')}}</a> </div>

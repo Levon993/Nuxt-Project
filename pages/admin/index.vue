@@ -1,5 +1,5 @@
 <template>
-<no-ssr>
+
  <div class="orders_page_body">
    
    <div class="chart">
@@ -42,14 +42,17 @@
    </div>
 
  </div>
- </no-ssr>
+
 </template>
 
 <script>
 import BarChart  from '@/components/chart.js'
+import token from '@/mixins/token.js'
 
 export default {
 middleware:['admin', 'auth'],
+mixins:[token],
+
 head()
 {
   return{
@@ -66,8 +69,7 @@ title: "Orders",
     BarChart,
 
     },
-   async asyncData({app,store})
-  {
+   async asyncData({app,store}){
      try{
         const token = app.$cookiz.get('token')
       if (store.getters['orders/orders'].length === 0)
@@ -138,6 +140,7 @@ title: "Orders",
    mounted(){
      this.getorders()
      this.chartGraphic()
+     
    },
 
 
@@ -145,8 +148,8 @@ title: "Orders",
     {
      async  getResults(page = 1) {
        try{
-          const {access_token} = JSON.parse(localStorage.getItem('AuthUser'))
-          await this.$store.dispatch('orders/getOrders',{page:page, token:access_token})
+      
+          await this.$store.dispatch('orders/getOrders',{page:page, token:this.token})
           this.orders = await this.$store.getters['orders/orders']
           
           this.chartGraphic(this.orders)
@@ -161,7 +164,7 @@ title: "Orders",
      async getorders(){
      //try{
         this.orders = await this.$store.getters['orders/orders']
-        console.log(this.orders);
+        
        this.chartGraphic(this.orders)
     //}catch(e)
     // {
