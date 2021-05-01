@@ -2,7 +2,27 @@
 
  <div class="orders_page_body">
    
-   
+   <div class="search">
+     <div class="search_input">
+     <label for="title">{{$t('title')}}</label>
+     <input type="text" v-model="search.title" placeholder="Search Title" id="title">
+     </div>
+     <div class="search_input">
+     <label for="price">{{$t('price')}}</label>
+     <input type="text" v-model="search.price" placeholder="Search Price" id="price">
+     </div>
+     <div class="search_input">
+     <label for="price" >{{$t('brand')}}</label>
+     <input type="text" v-model="search.brand" placeholder="Search Brand" id="price">
+     </div>
+      <div class="search_input">
+      <label for="price" >{{$t('category')}}</label>
+      <input type="text" v-model="search.category" placeholder="Search Category" id="price">
+      </div>
+      <div class="search_button_box">
+      <button @click.prevent="searchQuery()" class="search_button">Search</button>
+      </div>
+     </div>
    <div class="order_list">
     <table>
       <thead>
@@ -29,7 +49,7 @@
         </tr>
       </thead>
       <tbody >
-        <tr  v-for="product in products.data" :key="product.id">
+        <tr  v-for="product in products" :key="product.id">
           <td class="table_item">{{product.title}}</td>
           <td></td>
           <td></td>
@@ -45,7 +65,7 @@
           <td class="table_item" >{{product.old_price}}</td>
           <td></td>
           <td></td>
-          <td class="table_item">{{product.price}}</td>
+          <td class="table_item"><span :class="{currency_danger:(product.price >= 400)}" class="currency">{{product.price}}$</span></td>
           <td></td>
           <td></td>
           <td class="table_item"><button class="change_button">Change</button></td>
@@ -54,7 +74,12 @@
     </table>
    </div>
    <div class="paginate__box">
- 
+        <pagination
+                  class="paginate"
+                 :current="currentPage"
+                  :total="totalPages"
+                  @page-change="getResults">
+         </pagination>
    </div>
 
  </div>
@@ -81,6 +106,14 @@ export default {
   },
     data:(()=>{
       return{
+         currentPage: 1,
+       totalPages: 10,
+            search:{
+              title:'',
+              price:'',
+              brand:'',
+              category:'',
+            },
             products:{},
             currentPage: 1,
             totalPages: 10,
@@ -92,9 +125,36 @@ export default {
       this.getProducts()
     },
     methods:{
+       async  getResults(page = 1) {
+       try{
+          await this.$store.dispatch('products/getProducts',{page:page, token:this.token})
+          const res = await this.$store.getters['products/products']
+          this.products  = res.data
+         }catch(e)
+         {
+
+         }
+      
+      },
       async  getProducts(){
-         this.products = await this.$store.getters['products/products']
-        console.log(this.products);
+        try{
+         const res = await this.$store.getters['products/products']
+         this.products = res.data 
+        }catch(e)
+        {
+
+        }
+       },
+      async searchQuery()
+       {
+         try{
+           await this.$store.dispatch('products/getSearchData',{searchData: this.search, token: this.token})
+           this.products = await this.$store.getters['products/search']
+         }catch(e)
+         {
+
+         }
+          
        }
     }
     
@@ -137,5 +197,146 @@ export default {
 .change_button:active
 {
   box-shadow: 1px 1px 1px 1px black;
+}
+.search
+{
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+}
+.search_input
+{
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.search_button_box
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search_button
+{
+  margin-top: 18px;
+  border-style: none;
+  background-color: rgb(169, 151, 185);
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px black;
+  transition-delay: 50ms;
+}
+.search_button:active
+{
+  box-shadow: 1px 1px 1px 1px black;
+}
+.currency
+{
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  padding: 3px;
+  border-radius: 8px;
+    font-weight: 700;
+  background-color: #246068;
+  color: white;
+  box-shadow: 2px 2px 2px 1px black;
+}
+@keyframes danger_currency_anim {   
+  0% {     
+   transform: rotate(-30deg);  
+  }  
+  25% {     
+   transform: rotate(-20deg);  
+  }   
+  50% {     
+   
+  } 
+  70% {
+    transform: rotate(20deg);
+   }
+   100%{
+     transform: rotate(30deg);
+   }
+}
+
+@-moz-keyframes danger_currency_anim {   
+  0% {     
+   transform: rotate(-30deg);  
+  }   
+  50% {     
+    transform: rotate(0deg); 
+  } 
+  100% {
+    transform: rotate(30deg);
+   }
+}
+@-webkit-keyframes danger_currency_anim {   
+ 0% {     
+   transform: rotate(-30deg);  
+  }   
+  50% {     
+    transform: rotate(0deg); 
+  } 
+  100% {
+    transform: rotate(30deg);
+   }
+}
+.currency_danger
+{
+     -webkit-animation: danger_currency_anim 500ms ; /* Safari 4+ */
+     -moz-animation: danger_currency_anim 500ms ; /* Fx 5+ */
+     -o-animation: danger_currency_anim 500ms ; /* Opera 12+ */
+      animation: danger_currency_anim  500ms  ;
+    animation-delay: 300ms;
+     display: inline-block;
+     width: 50px;
+     height: 25px;
+     text-align: center;
+    padding: 3px;
+     border-radius: 8px;
+     background-color: red;
+     font-weight: 700;
+     color: rgb(19, 16, 16);
+     box-shadow: 2px 2px 2px 1px black;
+ 
+}
+
+.paginate__box
+{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 18px;
+}  
+
+.paginate ul
+{
+  display: flex;
+  margin: 15px;
+}
+.paginate li
+{
+  width: 50px;
+  height: 60px;
+  margin:10px;
+  font-size: 25px;
+  list-style: none;
+  background: #246068;
+  color: wheat; 
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 2px 1px black;
+  border-radius: 6px;
+}
+.paginate a
+{
+  color: wheat; 
+  text-align: center;
 }
 </style>
