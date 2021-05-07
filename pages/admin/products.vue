@@ -81,13 +81,21 @@
                   @page-change="getResults">
          </pagination>
    </div>
+   <AddProduct v-if="add"></AddProduct>
+   <div @click="add = !add" class="add_product_button">
+      <p>+</p> 
+   </div>
 
  </div>
 
 </template>
 <script>
+import AddProduct from '@/components/popup/addProduct'
 import token from '@/mixins/token.js'
 export default {
+  components:{
+    AddProduct
+  },
     middleware:['admin', 'auth'],
     mixins:[token],
     async asyncData({app,store}){
@@ -106,6 +114,7 @@ export default {
   },
     data:(()=>{
       return{
+        add:false,
          currentPage: 1,
        totalPages: 10,
             search:{
@@ -338,5 +347,29 @@ export default {
 {
   color: wheat; 
   text-align: center;
+}
+.add_product_button
+{
+  background-color: blueviolet;
+  width: 60px;
+  height: 60px;
+   border-radius: 50%;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  bottom: 70px;
+  right: 80px;
+
+}
+.add_product_button p
+{
+  cursor: pointer;
+   font-size: 25px;
+   text-align: center;
+   margin: 2px;
+   padding: 3px;
+
 }
 </style>

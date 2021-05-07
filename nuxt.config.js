@@ -42,8 +42,21 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
     'nuxt-i18n',
+    '@nuxtjs/toast',
     ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
+  toast: {
+    position: 'top-right',
+    register: [ // Register custom toasts
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
+},
   i18n: {
     locales: ['en', 'ru'],
     defaultLocale: 'ru',
