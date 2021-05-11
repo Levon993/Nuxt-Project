@@ -4,32 +4,32 @@
 <div class="foem_item">
  <label for="title">{{$t('title')}}</label>
  <input v-model="product.title" type="text" placeholder="Enter Title" id="title">
-<span class="error">Empty Fild Title</span>
+<span class="error" v-if="errors.title" >{{errors.title}}</span>
 </div>
 <div class="foem_item">
 <label id='brand' for="title">{{$t('brand')}}</label>
 <select v-model="product.brand_id" id="brand" >
 <option v-for="brand in brands" :key="brand.id" :value="brand.id">{{brand.title}}</option>
 </select>
-<span class="error">Empty Fild Brend</span>
+<span class="error" v-if="errors.brand_id">{{errors.brand_id}}</span>
 </div>
 <div class="foem_item">
 <label for="category">{{$t('category')}}</label>
 <select v-model="product.category_id" title="category">
 <option v-for="category in categories" :key="category.id" :value="category.id">{{category.title}}</option>
 </select>
-<span class="error">Empty Fild Category</span>
+<span class="error" v-if="errors.category_id">{{errors.category_id}}</span>
 </div>
 <div class="foem_item">
  <label placeholder="Enter Price" for="price">{{$t('price')}}</label>
  <input v-model="product.price" type="number" id="price">
-<span class="error">Empty Fild Price</span>
+<span class="error" v-if="errors.price"> {{errors.price}}</span>
 
 </div>
 <div class="foem_item">
  <label placeholder="Enter Keywords" for="keywords">Keywords</label>
  <input v-model="product.keywords" type="text" id="price">
-<span class="error">Empty Fild Keywords</span>
+<span class="error" v-if='errors.keywords'>{{errors.keywords}}</span>
 
 </div>
 <div class="foem_item">
@@ -37,7 +37,7 @@
 <span class="error">Empty Fild Image</span>   
             </div>
 <div class="foem_item">
-<button @click.prevent="createNewProduct()">Add</button>
+<button @click="createNewProduct()">Add</button>
 </div>
   </div>
     </div>
@@ -64,7 +64,7 @@ export default {
               brand_id:"",
               price:"",
               keywords:""
-             },
+           },
            formData:{},
            brands:{},
            categories:{}
@@ -75,6 +75,18 @@ export default {
        this.getCategories()
    },
    methods:{ 
+ 
+     validate(form)
+     {
+         let validate = 5
+         if(form.title.length < 4){this.errors.title ='Empty Title'; validate++} else {this.errors.title ='';--validate}
+         if(!form.category_id) {this.errors.category_id ='Empty Category';validate++} else {this.errors.category_id ='';--validate}  
+         if(!form.keywords){this.errors.keywords ='Empty Keyword';validate++}else {this.errors.keywords =''; --validate}  
+         if(!form.price){this.errors.price ='Empty price';validate ++} else {this.errors.price =''; --validate}  
+         if(!form.brand_id){this.errors.brand_id = 'Empty brand';validate ++}else {this.errors.brand_id = ''; --validate}
+         if(validate === 0) {return true} else{return false}
+     },
+
        async getBrands()
        {
             await this.$store.dispatch('brands/getBrands',{token: this.token})
@@ -85,9 +97,11 @@ export default {
             await this.$store.dispatch('categories/getCategories',{token: this.token})
             this.categories = await this.$store.getters['categories/categories']
        },
-       async createNewProduct(){
+       async createNewProduct(){ 
                 try {
-                    if(!this.product){ return this.$toast.error('Empty Form'); }
+                    const valid = this.validate(this.product)
+                   
+                    if(!valid){ return this.$toast.error('Empty Form'); }
                     let data = new FormData();
                     data.append('title', this.product.title)
                     data.append('category_id', this.product.category_id)
@@ -113,6 +127,7 @@ export default {
                     //console.log(e);
                    this.$toast.error('Something Went Wrong')
                 }
+                
             },
 
 
