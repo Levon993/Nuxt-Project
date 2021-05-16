@@ -26,7 +26,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
    {src:'@/plugins/pagination.js', ssr:false},
-   {src:'@/plugins/setCookie.js', ssr:false}
+   {src:'@/plugins/setCookie.js', ssr:false},
+   {src:'@/plugins/vuesax.js', ssr:false}
+
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -76,7 +78,15 @@ export default {
           price:'Price',
           old_price:'Old price',
           status:'Status',
-          created_at:"Created at"
+          created_at:"Created at",
+          bread_products:'bread products',
+          bear_products:'Bear Products',
+          canned_food:'Canned Food',
+          frozen_food:'Frozen Food',
+          sausage:'Sausage',
+          sweet: 'Sweets',
+          non_lac_drink:'Non Alkohol Drinks adn Water',
+          pet_food:"Pet Food"
         },
         ru: {
           welcome: 'Привет',
@@ -91,7 +101,15 @@ export default {
           price:'Цена',
           old_price:'Старая Цена',
           status:'Статус',
-          created_at:"Добавлено (чсл)"
+          created_at:"Добавлено (чсл)",
+          bread_products:"Хлебные Изделия",
+          bear_products:'Пивные Напитки',
+          canned_food:'Бакалея',
+          frozen_food:"Заморозка",
+          sausage:'Колбасные Изделия',
+          sweet: 'Сладости',
+          non_lac_drink:'Безалклгольные напитки и вода',
+          pet_food:"Корма для домашних питомецв"
         }
 
     }
