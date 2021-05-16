@@ -1,4 +1,4 @@
-# nuxt-example
+# online shop
 
 ## Build Setup
 
