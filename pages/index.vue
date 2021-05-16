@@ -16,7 +16,7 @@
       </template>
       <template #interactions>
         <vs-button danger icon>
-          <i class='bx bx-heart'></i>
+          <i class='bx search bx-heart'></i>
         </vs-button>
         <vs-button class="btn-chat" shadow primary>
           <i class='bx bx-chat' ></i>

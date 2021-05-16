@@ -13,16 +13,17 @@
         <div class="center content-inputs">
      <vs-input
         type="text"
-        label-placeholder="Password"
-        :
+        label-placeholder="Поиск "
+        
+        v-model="search"
         >
-        <template #icon>
+        <template  #icon>
          
-          <i class='bx bx-search'></i>
+          <i @click="test" class='bx search bx-search'></i>
         </template>
 
-        <template v-if="getProgress >= 100" #message-success>
-          Secure password
+        <template >
+          search
         </template>
 
       </vs-input>
@@ -167,11 +168,23 @@ import about from '../pages/about.vue'
   components: { about },
     data:() => ({
       active: 'home',
-      activeSidebar: false
-    })
+      activeSidebar: false,
+      search:""
+    }),
+    methods:{
+      test()
+      {
+        console.log(search)
+      }
+    }
   }
   </script>
   <style >
+    .search
+    {
+      cursor: pointer;
+      margin-top: 5px;
+    }
   .container_1
   {
     display: flex;
