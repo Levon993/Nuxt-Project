@@ -9,18 +9,26 @@
             <i class='bx bx-menu'></i>
           </vs-button>
         </template>
-        <vs-navbar-item :active="active == 'guide'" id="guide">
-          Guide
+        <vs-navbar-item >
+        <div class="center content-inputs">
+     <vs-input
+        type="text"
+        label-placeholder="Password"
+        :
+        >
+        <template #icon>
+         
+          <i class='bx bx-search'></i>
+        </template>
+
+        <template v-if="getProgress >= 100" #message-success>
+          Secure password
+        </template>
+
+      </vs-input>
+    </div>
         </vs-navbar-item>
-        <vs-navbar-item :active="active == 'docs'" id="docs">
-          Documents
-        </vs-navbar-item>
-        <vs-navbar-item :active="active == 'components'" id="components">
-          Components
-        </vs-navbar-item>
-        <vs-navbar-item :active="active == 'license'" id="license">
-          license
-        </vs-navbar-item>
+        
         <template #right>
           <vs-button flat >Login</vs-button>
           <vs-button>Get Started</vs-button>
@@ -51,13 +59,13 @@
         </vs-sidebar-item>
         <vs-sidebar-item id="frozen_food">
           <template #icon>
-          <i class='bx bxs-fridge'></i>
+            <img class="png" :src="require('@/assets/icons/snow.png')">
           </template>
           {{$t('frozen_food')}}
         </vs-sidebar-item>
        <vs-sidebar-item id="sausage">
           <template #icon>
-                  <img class="png" :src="require('@/assets/icons/sousage.png')">
+            <img class="png" :src="require('@/assets/icons/sousage.png')">
           </template>
           {{$t('sausage')}}
         </vs-sidebar-item>
@@ -70,7 +78,7 @@
         </vs-sidebar-item>
         <vs-sidebar-item id="non_lac_drink">
           <template #icon>
-            <i class='bx bxs-music'></i>
+           <img class="png" :src="require('@/assets/icons/bottle.png')">
           </template>
           {{$t('non_lac_drink')}}
         </vs-sidebar-item>
@@ -149,28 +157,7 @@
       <nuxt />
     </div>
 
-    <div class="container_1">
-      <div class="about_container">
-        <div class="sunny">
-          <img class="png_about" :src="require('@/assets/icons/sunny.png')">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-        </div>
-      <div class="about">
-        <div class="about_item">
-        <img class="png_about" :src="require('@/assets/icons/rebbit.png')">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-       </div>
-        <div class="about_item">
-        <img class="png_about" :src="require('@/assets/icons/rebbit.png')">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-       </div>
-        <div class="about_item">
-        <img class="png_about" :src="require('@/assets/icons/rebbit.png')">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-       </div>
-      </div>
-      </div>
-    </div>
+  
   </div>
  
   </template>
@@ -199,8 +186,8 @@ import about from '../pages/about.vue'
   }
   .png
   {
-    width: 24px;
-    height: 24px;
+    width: 44px;
+    height: 40px;
   }
   .about
   {
@@ -218,6 +205,9 @@ import about from '../pages/about.vue'
     margin-top: 20px;
     display: inline-block;
     width: 75px;
+    font-size: 13px;
+    font-weight: bold;
+ 
   }
   .sunny{
     display: flex;
@@ -229,6 +219,9 @@ import about from '../pages/about.vue'
     margin-top: 20px;
     display: inline-block;
     width: 75px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
   }
   .png_about
   {
@@ -239,24 +232,23 @@ import about from '../pages/about.vue'
        display: flex;
      }
 
-  @media screen and (max-width: 500px) 
+  @media screen and (max-width: 540px) 
    {
      .about_container{
-      flex-wrap: wrap;
-      margin: 25x;
+      
+     flex-wrap: wrap; 
      }
      .sunny
      {
        width: 70%;
-      display:none;
+     
        align-items: center;
      
      }
      .about
      {
-       display: none;
-      margin-left: 100px;
-      width: 300px;
+       
+       width: 200px;
      }
      .png_about
      {
@@ -266,16 +258,9 @@ import about from '../pages/about.vue'
      .sunny p
      {
        width: 100%;
-      
      }
-     #child_1
-     {
-      display:none;
-     }
-     .about_item
-     {
-       flex-direction: column;
-     }
+    
+    
      
     }
   </style>
