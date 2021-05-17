@@ -50,12 +50,19 @@
       </div>
       </div>
     </div>
+  <div class="spec">
+  <Special />
+  </div>
   </div>
     </template> 
   <script>
+    import Special from '@/components/special'
     export default{
     
-      layout:'index'
+      layout:'index',
+      components:{
+      Special
+      }
 
     }
   </script>
@@ -146,5 +153,11 @@
        flex-direction: column;
      }
     
+    }
+
+    .spec{
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
