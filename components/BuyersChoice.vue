@@ -2,10 +2,9 @@
   <div class="container">
     <div class="wrapper">
 <div class="text">
-  <p>Солнечные цены
-    от Солнечного
+  <p>Выбор Покупателя
   </p>
-       <img class="png" :src="require('@/assets/icons/sunny2.png')" alt="">
+       <img class="png" :src="require('@/assets/icons/woman.png')" alt="">
   </div>    
   <div class="items">
     <div class="item">
@@ -21,6 +20,14 @@
      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
     </div>
 <div class="item">
+     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
+     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+    </div>
+    <div class="item">
+     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
+     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+    </div>
+    <div class="item">
      <img :src="require('@/assets/img/shishkin.jpg')" alt="">
      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
     </div>
@@ -61,19 +68,20 @@
 {
 margin: 5px;
 padding: 12px;
-font-family: "Roboto";
+font-family: 'Lobster', cursive;
 font-weight:bold;
+font-size: 25px;
 }
 .png
 {
   margin-top: 50px;
-  width:120px;
-  height: 120px;
+  width:200px;
+  height: 200px;
 }
 .items
 {
   display: grid;
-  grid-template-columns: 150px 150px 150px;
+  grid-template-columns: 150px 150px 150px 150px ;
   grid-template-rows: 250px 250px;
   
 }

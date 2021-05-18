@@ -12,6 +12,7 @@ export const state = () =>({
 
   export const actions = {
     async getCategories({commit},params){
+      
       this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
       const categories = await  this.$axios.$get('/api/categories/index')
 

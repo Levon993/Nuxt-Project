@@ -40,7 +40,13 @@ export const state = () =>({
       this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
       const message = await  this.$axios.$post('/api/products/create',params.data)
       commit('setMessage', message)
-    }
+    },
+    async getProductsByCategory({commit},params){
+      this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
+      const products = await  this.$axios.$post('/api/products/getByCategory', {categoryId:params.id})
+      commit('setProducts', products)
+    },
+
   }
 
   export const getters = {

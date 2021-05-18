@@ -32,6 +32,14 @@
      <img :src="require('@/assets/img/shishkin.jpg')" alt="">
      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
     </div>
+     <div class="item">
+     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
+     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+    </div>
+     <div class="item">
+     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
+     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+    </div>
   </div>
     </div>
   </div>
@@ -73,7 +81,7 @@ font-weight:bold;
 .items
 {
   display: grid;
-  grid-template-columns: 150px 150px 150px;
+  grid-template-columns: 150px 150px 150px 150px;
   grid-template-rows: 250px 250px;
   
 }

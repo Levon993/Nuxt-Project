@@ -2,7 +2,7 @@
 <div class="container">
     <div class="slider">
       <vs-card-group>
-    <vs-card v-for="card in 6" @click="handleClick">
+    <vs-card v-for="card in 6" :key="card">
       <template #title>
         <h3>Pot with a plant</h3>
       </template>

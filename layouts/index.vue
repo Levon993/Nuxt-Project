@@ -14,39 +14,56 @@
     <nav  :class="{nav:navbar, navnone:!navbar}">
             <div class="logo_text">Solnechniy</div>
             <ul class="list">
-                <li><img class="png" :src="require('@/assets/icons/bread.png')">  <p>{{$t('bread_products')}}</p> </li>
-                <li><img class="png" :src="require('@/assets/icons/Beer.png')"> <p>{{$t('bear_products')}}</p> </li>
-                <li><img class="png" :src="require('@/assets/icons/snow.png')"> <p>{{$t('frozen_food')}}</p> </li>
-                <li><img class="png" :src="require('@/assets/icons/sousage.png')"> <p>{{$t('sausage')}}</p> </li>
-                <li><img class="png" :src="require('@/assets/icons/milk.png')"> <p>Молочка</p> </li>
-                <li><img class="png" :src="require('@/assets/img/dog.png')">
-                 <ul v-if="pet">
-                    {{$t('pet_food')}}
-                    <li><img class="png" :src="require('@/assets/img/dog.png')"></li>
-                    <li><img class="png" :src="require('@/assets/icons/cat.png')"></li>
-                    
-                    </ul></li>
-                
-                </ul>
+                <li v-for="category in categories" :key="category.id">
+                   <img class="png" :src="require(`@/assets/icons/${category.img}`)"> <nuxt-link  exect no-prefetch active-class :to="`/product/${category.id}`">  <p>{{category.title}}</p> </nuxt-link>
+                </li>
+             </ul>
         </nav>
 </div>
     <div class="contant">
 <nuxt/>
     </div>
+    <div class="footer">
+     <Footer/>
+    </div>
  </div>
 </template>
 <script>
 import NavBar from '@/components/user/NavBar'
+import Footer from '@/components/footer'
+import token from '@/mixins/token.js'
 export default {
     components:{
-     NavBar
+     NavBar,
+     Footer
     },
-    data:(()=>{
+    mixins:[token],
+        data:(()=>{
         return{
             navbar:false,
-            pet:false
+            pet:false,
+            categories:{}
         }
-    })
+    }),
+  mounted(){
+this.getCategories()
+
+  },
+
+  methods:{
+      async  getCategories(){
+        try{
+            await this.$store.dispatch('categories/getCategories',{ token: this.token})
+            const res = await this.$store.getters['categories/categories']
+            this.categories = res
+           
+        }catch(e)
+        {
+
+        }
+       },
+  }
+    
 }
 </script>
 <style scoped>
@@ -122,11 +139,12 @@ export default {
     
 }
 .nav{
+    overflow-y: scroll;
     position: fixed;
     top: 95px;
     left: 0;
     width: 30%;
-    height: 800px;
+    height: 700px;
     border-radius: 8px;
     background-color: white;
     border: 1px solid silver;
@@ -136,6 +154,7 @@ export default {
 }
 .navnone
 {
+    overflow: auto;
     display: none;
     transition-delay: 100ms;
 }
@@ -163,6 +182,20 @@ export default {
   {
     width: 44px;
     height: 40px;
+  }
+  .footer
+  {
+       min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+  }
+  .active
+  {
+   border-bottom: 1px solid red;
   }
 
 @media screen and (max-width: 600px) { 

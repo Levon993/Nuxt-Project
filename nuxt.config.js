@@ -14,6 +14,10 @@ export default {
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Lobster&display=swap',
       }
     ]
   },
@@ -87,7 +91,8 @@ export default {
           sausage:'Sausage',
           sweet: 'Sweets',
           non_lac_drink:'Non Alkohol Drinks adn Water',
-          pet_food:"Pet Food"
+          pet_food:"Pet Food",
+          cereals:"Cereals"
         },
         ru: {
           welcome: 'Привет',
@@ -110,7 +115,8 @@ export default {
           sausage:'Колбасные Изделия',
           sweet: 'Сладости',
           non_lac_drink:'Безалклгольные напитки и вода',
-          pet_food:"Корма для домашних питомецв"
+          pet_food:"Корма для домашних питомецв",
+          cereals:"Крупы"
         }
 
     }
