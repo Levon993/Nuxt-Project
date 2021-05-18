@@ -27,7 +27,8 @@ export default {
   plugins: [
    {src:'@/plugins/pagination.js', ssr:false},
    {src:'@/plugins/setCookie.js', ssr:false},
-   {src:'@/plugins/vuesax.js', ssr:false}
+   {src:'@/plugins/vuesax.js', ssr:false},
+   {src:'@/plugins/slider.js', ssr:false}
 
   ],
 

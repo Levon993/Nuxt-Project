@@ -1,279 +1,179 @@
 <template>
-<div>
-  
-    <div class="">
-    <no-ssr>
-      <vs-navbar shadow square center-collapsed v-model="active">
-        <template #left>
-          <vs-button @click="activeSidebar = !activeSidebar" flat icon>
-            <i class='bx bx-menu'></i>
-          </vs-button>
-        </template>
-        <vs-navbar-item >
-        <div class="center content-inputs">
-     <vs-input
-        type="text"
-        label-placeholder="Поиск "
-        
-        v-model="search"
-        >
-        <template  #icon>
-         
-          <i @click="test" class='bx search bx-search'></i>
-        </template>
-
-        <template >
-          search
-        </template>
-
-      </vs-input>
+<div class="container">
+    <div class="header"> 
+    <div @click="navbar = !navbar"><i  class='bx menu' :class="{'bx-menu':!navbar,'bx-x':navbar}"></i></div>
+    <div><input type="text" class="search">
+    <button class="btn-reg"><i  class='bx bx-search'></i></button>
     </div>
-        </vs-navbar-item>
-        
-        <template #right>
-          <vs-button flat >Login</vs-button>
-          <vs-button>Get Started</vs-button>
-        </template>
-      </vs-navbar>
-      </no-ssr>
-      <vs-sidebar
-        absolute
-        v-model="active"
-        :open.sync="activeSidebar"
-        >
-        <template #logo>
-        <img class="logo" :src="require('@/assets/img/logo.png')" alt="">
-        </template>
-        <vs-sidebar-item id="bread_products">
-          <template #icon>
-              <img class="png" :src="require('@/assets/icons/bread.png')">
-            
-          </template>
-          {{$t('bread_products')}}
-        </vs-sidebar-item>
-        <vs-sidebar-item id="bear_products">
-          <template #icon>
-      <img class="png" :src="require('@/assets/icons/Beer.png')">
-
-          </template>
-          {{$t('bear_products')}}
-        </vs-sidebar-item>
-        <vs-sidebar-item id="frozen_food">
-          <template #icon>
-            <img class="png" :src="require('@/assets/icons/snow.png')">
-          </template>
-          {{$t('frozen_food')}}
-        </vs-sidebar-item>
-       <vs-sidebar-item id="sausage">
-          <template #icon>
-            <img class="png" :src="require('@/assets/icons/sousage.png')">
-          </template>
-          {{$t('sausage')}}
-        </vs-sidebar-item>
-        <vs-sidebar-item id="sweet">
-          <template #icon>
-           <img class="png" :src="require('@/assets/icons/sweet.png')">
-
-          </template>
-          {{$t('sweet')}}
-        </vs-sidebar-item>
-        <vs-sidebar-item id="non_lac_drink">
-          <template #icon>
-           <img class="png" :src="require('@/assets/icons/bottle.png')">
-          </template>
-          {{$t('non_lac_drink')}}
-        </vs-sidebar-item>
-        <vs-sidebar-item id="milk">
-          <template #icon>
-          <img class="png" :src="require('@/assets/icons/milk.png')">
-          </template>
-          Молочные Продукты
-        </vs-sidebar-item>
-        <vs-sidebar-group>
-          <template #header>
-            <vs-sidebar-item arrow>
-              <template #icon>
-              <img class="png" :src="require('@/assets/img/dog.png')">
-              </template>
-              {{$t('pet_food')}}
-            </vs-sidebar-item>
-          </template>
-          <vs-sidebar-item id="github">
-            <template #icon>
-            <img class="png" :src="require('@/assets/icons/cat.png')">
-            </template>
-            Для Кошек
-          </vs-sidebar-item>
-          <vs-sidebar-item id="codepen">
-            <template #icon>
-             <img class="png" :src="require('@/assets/img/dog.png')">
-            </template>
-           Для собак
-          </vs-sidebar-item>
-        </vs-sidebar-group>
-        <vs-sidebar-item id="donate">
-          <template #icon>
-            <i class='bx bxs-donate-heart' ></i>
-          </template>
-          Donate
-        </vs-sidebar-item>
-        <vs-sidebar-item id="drink">
-          <template #icon>
-            <i class='bx bx-drink'></i>
-          </template>
-          Drink
-        </vs-sidebar-item>
-        <vs-sidebar-item id="shopping">
-          <template #icon>
-            <i class='bx bxs-shopping-bags'></i>
-          </template>
-          Shopping
-        </vs-sidebar-item>
-        <vs-sidebar-item id="chat">
-          <template #icon>
-            <i class='bx bx-chat' ></i>
-          </template>
-          Chat
-        </vs-sidebar-item>
-        <template #footer>
-          <vs-row justify="space-between">
-            <vs-avatar>
-              <img src="/avatars/avatar-5.png" alt="">
-            </vs-avatar>
-
-            <vs-avatar badge-color="danger" badge-position="top-right">
-              <i class='bx bx-bell' ></i>
-
-              <template #badge>
-                28
-              </template>
-            </vs-avatar>
-          </vs-row>
-        </template>
-      </vs-sidebar>
+    <div>
+        <button class="btn-reg">login</button>
+        <button class="btn-reg">regiser</button>
+        </div>
     </div>
-    
-
-    <div id='child_1' class="container_1">
-      <nuxt />
+    <div>
+    <nav  :class="{nav:navbar, navnone:!navbar}">
+            <div class="logo_text">Solnechniy</div>
+            <ul class="list">
+                <li><img class="png" :src="require('@/assets/icons/bread.png')">  <p>{{$t('bread_products')}}</p> </li>
+                <li><img class="png" :src="require('@/assets/icons/Beer.png')"> <p>{{$t('bear_products')}}</p> </li>
+                <li><img class="png" :src="require('@/assets/icons/snow.png')"> <p>{{$t('frozen_food')}}</p> </li>
+                <li><img class="png" :src="require('@/assets/icons/sousage.png')"> <p>{{$t('sausage')}}</p> </li>
+                <li><img class="png" :src="require('@/assets/icons/milk.png')"> <p>Молочка</p> </li>
+                <li><img class="png" :src="require('@/assets/img/dog.png')">
+                 <ul v-if="pet">
+                    {{$t('pet_food')}}
+                    <li><img class="png" :src="require('@/assets/img/dog.png')"></li>
+                    <li><img class="png" :src="require('@/assets/icons/cat.png')"></li>
+                    
+                    </ul></li>
+                
+                </ul>
+        </nav>
+</div>
+    <div class="contant">
+<nuxt/>
     </div>
-
-  
-  </div>
- 
-  </template>
-  <script>
-import about from '../pages/about.vue'
-  export default {
-  components: { about },
-    data:() => ({
-      active: 'home',
-      activeSidebar: false,
-      search:""
-    }),
-    methods:{
-      test()
-      {
-        console.log(search)
-      }
-    }
-  }
-  </script>
-  <style >
-    .search
-    {
-      cursor: pointer;
-      margin-top: 5px;
-    }
-  .container_1
-  {
+ </div>
+</template>
+<script>
+import NavBar from '@/components/user/NavBar'
+export default {
+    components:{
+     NavBar
+    },
+    data:(()=>{
+        return{
+            navbar:false,
+            pet:false
+        }
+    })
+}
+</script>
+<style scoped>
+.container
+{
+    width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin: 15px;
+   min-width: 700px;
+}
+.header
+{
+     min-width:700px;
     display: flex;
+    width: 100%;
+    height: 75px;
+    justify-content: space-between;
+    padding: 25px;
+    
+    border-bottom: 1px solid silver;   
+   
+} 
+.menu
+{
+   border: 1px solid silver;
+   font-size: 40px;
+}
+.contant
+{
+
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
-  }
-  .logo
-  {
-    width: 100%;
-    height: 100%;
-  }
+    margin: 5px;
+    padding: 5px;
+    
+}
+
+.btn-reg
+{
+    margin-top: 8px;
+    width: 80px;
+    border-style: none;
+    outline: 0;
+    outline-offset: 0;
+    background-color: rgb(202, 231, 206);
+    box-shadow: 3px 3px 3px  rgb(100, 231, 206) ;
+}
+.btn-reg:active  {
+   
+   box-shadow: 1px 1px 1px  rgb(100, 231, 206) ;
+}
+ input
+{
+  
+    border-style: none;
+    border-bottom: 2px solid silver;
+    transition: 300ms;
+
+}
+ input:active, :focus
+{
+    position: relative;
+    top: 5px;
+    border-bottom: 2px solid green;
+    outline: 0;
+    outline-offset: 0;
+    
+}
+.nav{
+    position: fixed;
+    top: 95px;
+    left: 0;
+    width: 30%;
+    height: 800px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid silver;
+    transition-delay: 100ms;
+    z-index: 1111111111111111;
+
+}
+.navnone
+{
+    display: none;
+    transition-delay: 100ms;
+}
+.list
+{
+    list-style:  none;
+    margin: 5px;
+    padding: 5px;
+}
+ li
+{
+   margin: 4px;
+   display: flex;
+   text-align: center;
+   align-items: center;
+   font-family: 'Roboto';
+}
+.logo_text{
+    text-align: center;
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 25px;
+}
   .png
   {
     width: 44px;
     height: 40px;
   }
-  .about
-  {
-    display: flex;
-  }
-  .about_item
-  {
-    display: flex;
-    margin: 60px;
-   
-  }
-   .about_item p
-  {
-    
-    margin-top: 20px;
-    display: inline-block;
-    width: 75px;
-    font-size: 13px;
-    font-weight: bold;
- 
-  }
-  .sunny{
-    display: flex;
-    margin: 60px;
-  }
-   .sunny p
-  {
-    
-    margin-top: 20px;
-    display: inline-block;
-    width: 75px;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 5px;
-  }
-  .png_about
-  {
-    width: 80px;
-    height: 80px;
-  }
-  .about_container{
-       display: flex;
-     }
 
-  @media screen and (max-width: 540px) 
-   {
-     .about_container{
-      
-     flex-wrap: wrap; 
-     }
-     .sunny
-     {
-       width: 70%;
-     
-       align-items: center;
-     
-     }
-     .about
-     {
-       
-       width: 200px;
-     }
-     .png_about
-     {
-      width: 50px;
-      height: 50px;
-     }
-     .sunny p
-     {
-       width: 100%;
-     }
+@media screen and (max-width: 600px) { 
+
+.btn-reg
+{
+   
+    width: 60px;
     
-    
-     
-    }
-  </style>
+}
+
+
+}
+</style>

@@ -1,13 +1,13 @@
 <template>
 <div class="container">
-  <div id="carousel">
-      <vs-card-group >
-    <vs-card type="4"  v-for="card in 3" :key="card">
+    <div class="slider">
+      <vs-card-group>
+    <vs-card v-for="card in 6" @click="handleClick">
       <template #title>
         <h3>Pot with a plant</h3>
       </template>
       <template #img>
-        <img class="card" :src="require('@/assets/img/foto2.jpg')" alt="">
+        <img :src="require('@/assets/img/foto2.jpg')" alt="">
       </template>
       <template #text>
         <p>
@@ -16,7 +16,7 @@
       </template>
       <template #interactions>
         <vs-button danger icon>
-          <i class='bx search bx-heart'></i>
+          <i class='bx bx-heart'></i>
         </vs-button>
         <vs-button class="btn-chat" shadow primary>
           <i class='bx bx-chat' ></i>
@@ -27,8 +27,7 @@
       </template>
     </vs-card>
   </vs-card-group>
-  </div>
-    <div class="container_1">
+    </div>
       <div class="about_container">
         <div class="sunny">
           <img class="png_about" :src="require('@/assets/icons/sunny.png')">
@@ -49,37 +48,61 @@
        </div>
       </div>
       </div>
-    </div>
+  
   <div class="spec">
-  <Special />
+  <Special></Special>
+  </div>
+  <div class="spec">
+  <BuyersChoice></BuyersChoice>
   </div>
   </div>
     </template> 
   <script>
     import Special from '@/components/special'
+    import BuyersChoice from '@/components/BuyersChoice'
+    import Slider from '@/components/slider'
     export default{
     
       layout:'index',
       components:{
-      Special
+      Special,
+      Slider,
+      BuyersChoice
       }
 
     }
   </script>
   <style>
+    .slider
+    {
+      width: 1200px;
+      min-width: 500px;
+      display: flex;
+      justify-content: center;
+    }
   .container
   {
-   display: grid;
+   min-width: 500px;
+   display: flex;
    justify-content: center;
   }
+  .about_container{
+      min-width: 500px;
+       display: flex;
+       flex-wrap: wrap;
+     }
   .about
   {
     display: flex;
+    min-width: 500px;
+
   }
   .about_item
   {
+    
     display: flex;
-    margin: 60px;
+    margin: 35px;
+    
    
   }
    .about_item p
@@ -94,17 +117,18 @@
   }
   .sunny{
     display: flex;
-    margin: 60px;
+    margin: 38px;
+  
   }
    .sunny p
   {
     
-    margin-top: 20px;
-    display: inline-block;
-    width: 75px;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 5px;
+     margin-top: 17px;
+     display: inline-block;
+     width: 75px;
+     font-size: 18px;
+     font-weight: bold;
+     padding: 5px;
      font-family: 'Roboto', sans-serif;
   }
   .png_about
@@ -112,52 +136,42 @@
     width: 80px;
     height: 80px;
   }
-  .about_container{
-       display: flex;
-     }
+  
 
-  @media screen and (max-width: 540px) 
-   {
-      #carousel{
-       display: none;
-     }
-     .about_container{
-      
-     flex-wrap: wrap; 
-     }
-     .sunny
-     {
-       width: 70%;
-     
-       align-items: center;
-     
-     }
-     .about
-     {
-       
-       width: 200px;
-     }
-     .png_about
-     {
-      width: 50px;
-      height: 50px;
-     }
-     .sunny p
-     {
-       width: 100%;
-     }
+.spec
+{
+min-width: 500px;
+margin-top: 25px;
+}  
+@media screen and (max-width: 600px)
+{
+  .about_container
+  {
+    display: flex;
+    justify-content: center;
+    margin-left: 150px;
+  }
+  .sunny p
+  {
+    width: auto;
+  }
+  .about_item
+  {
+    margin: 25px;
+  }
+  .png_about
+  {
+    width: 40px;
+    height: 40px;
+  }
+   .about_item p
+  {
+    margin-top: 0px;
+    margin-left: 3px;
+  }
+  .slider{
+    margin-left: 150px;
+  }
+}
     
-     .about_item
-     {
-       margin: 22px;
-       flex-direction: column;
-     }
-    
-    }
-
-    .spec{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
   </style>
