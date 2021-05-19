@@ -1,7 +1,7 @@
 <template>
 
  <div class="orders_page_body">
-   
+  
    <div class="search">
      <div class="search_input">
      <label for="title">{{$t('title')}}</label>
@@ -68,7 +68,7 @@
           <td class="table_item"><span :class="{currency_danger:(product.price >= 400)}" class="currency">{{product.price}}$</span></td>
           <td></td>
           <td></td>
-          <td class="table_item"><button class="change_button">Change</button></td>
+          <td class="table_item"><button @click="ProductDetails(product)" class="change_button">Change</button></td>
         </tr>
       </tbody>
     </table>
@@ -82,6 +82,7 @@
          </pagination>
    </div>
    <AddProduct v-if="add"></AddProduct>
+    <Change v-if="showDetails" :product ="product"></Change>
    <div @click="add = !add" class="add_product_button">
       <p>+</p> 
    </div>
@@ -91,10 +92,13 @@
 </template>
 <script>
 import AddProduct from '@/components/popup/addProduct'
+import Change from '@/components/admin/productDetails'
+
 import token from '@/mixins/token.js'
 export default {
   components:{
-    AddProduct
+    AddProduct,
+    Change
   },
     middleware:['admin', 'auth'],
     mixins:[token],
@@ -114,6 +118,7 @@ export default {
   },
     data:(()=>{
       return{
+        showDetails:false,
         add:false,
          currentPage: 1,
        totalPages: 10,
@@ -124,6 +129,7 @@ export default {
               category:'',
             },
             products:{},
+            product:{},
             currentPage: 1,
             totalPages: 10,
             show: true
@@ -164,6 +170,12 @@ export default {
 
          }
           
+       }, 
+
+       ProductDetails(product)
+       {
+        this.showDetails = true
+        this.product = JSON.parse(JSON.stringify(product))
        }
     }
     
