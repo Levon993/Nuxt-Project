@@ -6,7 +6,7 @@
     <button class="btn-reg"><i  class='bx bx-search'></i></button>
     </div>
     <div>
-        <button class="btn-reg">login</button>
+        <button class="btn-reg"><nuxt-link active-class to="/login">login</nuxt-link></button>
         <button class="btn-reg">regiser</button>
         </div>
     </div>

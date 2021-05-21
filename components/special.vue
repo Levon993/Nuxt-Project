@@ -8,42 +8,31 @@
        <img class="png" :src="require('@/assets/icons/sunny2.png')" alt="">
   </div>    
   <div class="items">
-    <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-    <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-    <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-<div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-    <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-    <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-     <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-    </div>
-     <div class="item">
-     <img :src="require('@/assets/img/shishkin.jpg')" alt="">
-     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+    <div v-for="product in data" :key="product.id" class="item">
+     <img :src="require(`@/assets/img/${product.img}`)" alt="">
+     <p>{{product.description}}</p>
+     <div class="prices">
+     <p class="price">545</p>
+     <p class="old_price"><strike>545</strike></p>
+     </div>
+    <div class="icons">
+  <button class="wish"><i class='bx bx-bookmark-heart'></i></button>
+  <button class="basket"><i class='bx bx-basket'></i></button>
+  </div>
     </div>
   </div>
     </div>
   </div>
 </template>
+<script>
+export default {
+ props:['data'],
+ mounted(){
+   console.log(this.data);
+ }
+}
+
+</script>
 <style scoped>
 .container
 {
@@ -81,12 +70,13 @@ font-weight:bold;
 .items
 {
   display: grid;
-  grid-template-columns: 150px 150px 150px 150px;
+  grid-template-columns: 160px 160px 160px 160px;
   grid-template-rows: 250px 250px;
   
 }
 .item
 {
+  position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid silver;
@@ -96,5 +86,54 @@ font-weight:bold;
  font-weight: 600;
  padding: 3px;
  box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
+}
+
+.item:hover
+{
+  position: relative;
+ width: 160px;
+ height: 270px;
+ 
+ 
+z-index: 111111111111111;
+}
+.icons
+{
+    display: flex;
+    position: absolute;
+    bottom:0;
+    right: 0;
+}
+.wish, .basket
+{
+   font-size: 20px;
+   border-radius: 8px;
+   border-style: hidden;
+   color: white;
+   
+}
+.wish
+{
+   background-color: #ff4757;
+  margin: 3px;
+}
+.basket
+{
+   background-color: #663399;
+     margin: 3px;
+}
+.prices
+{
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+.prices p
+{
+  margin: 5px;
+}
+.old_price
+{
+  color: red;
 }
 </style>

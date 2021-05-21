@@ -50,7 +50,7 @@
       </div>
   
   <div class="spec">
-  <Special></Special>
+  <Special :data="specData"></Special>
   </div>
   <div class="spec">
   <BuyersChoice></BuyersChoice>
@@ -68,6 +68,41 @@
       Special,
       Slider,
       BuyersChoice
+      }, 
+      async asyncData({app,store}){
+    // try{
+        const token = app.$cookiz.get('token')
+//if (store.getters['products/choices'].length === 0)
+     // {
+         console.log('sdsdsdsdsd')
+         await store.dispatch('products/ChoicesForUser',{token: token})
+    // }
+    //  }catch(e)
+    //    {
+
+  //   }
+
+  },
+      data:(()=>{
+      return{
+        specData:{}
+      }  
+    }),
+      mounted()
+      {
+        this.getChoices()
+      },
+      methods:{
+        async  getChoices(){
+        //try{
+         const res = await this.$store.getters['products/choicesForUser']
+         this.specData = res 
+         console.log(res);
+       // }catch(e)
+       // {
+
+       // }
+       },
       }
 
     }

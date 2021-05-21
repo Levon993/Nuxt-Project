@@ -11,18 +11,16 @@ export default async function ({req,store,redirect,app}) {
    {
           store.dispatch('auth/getAuth',token)
           user = await store.getters['auth/auth']
-        
-
    }
 
    if(!user)
 
     {
-      redirect('/')
+      redirect('/login')
     }
 }else
 {
-  redirect('/')
+  redirect('/login')
 }
 
 }

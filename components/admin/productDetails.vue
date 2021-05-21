@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <div class="close" @click="close">X</div>
      <div class="details_body">
        <img :src="require(`@/assets/img/${product.img}`)" alt="">
         <div class="form">
@@ -36,8 +37,9 @@
 
 </div>
 
-<div class="foem_item">
+<div class="foem_item btns">
 <button @click="updateProduct()">Редакировать</button>
+<button @click="addToChoice(product.id)">Добавить в избранные</button>
 </div>
   </div>
      </div>
@@ -83,8 +85,19 @@ export default {
      async updateProduct()
        {
              await this.$store.dispatch('products/update',{product:this.product, token: this.token})
-          const res  = await this.$store.getters['products/updateMessage']
+            const res  = await this.$store.getters['products/updateMessage']
            console.log(res);
+       },
+      async addToChoice(id)
+       {
+            await this.$store.dispatch('products/addToChoice',{id:id, token: this.token})
+            const res  = await this.$store.getters['products/choiceMessage']
+           console.log(res);
+       },
+       close(e)
+       {
+          this.$parent.showDetails = false 
+           
        }
     }
 }
@@ -111,7 +124,7 @@ img
 
     width: 650px;
     height: 600px;
-    margin-top:150px ;
+    margin-top:110px ;
     background-color: white;
     justify-content: center;
     align-items: center;
@@ -155,11 +168,31 @@ input:active, :focus
 button
 {
      margin-top: 8px;
+     margin-left:15px;
     width: 100px;
     border-style: none;
     outline: 0;
     outline-offset: 0;
     background-color: rgb(202, 231, 206);
     box-shadow: 3px 3px 3px  rgb(100, 231, 206) ;
+}
+.btns
+{
+    display: flex;
+    flex-direction: row;
+}
+.close{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+ background-color: rgb(245, 233, 233);
+ position:absolute;
+ top: 130px;
+ right: 100px;
+ color: rgb(0, 0, 0);
+ z-index: 222222222222222222 ;
+ font-size: 35px;
+ text-align: center;
+ padding: 4px;
 }
 </style>
