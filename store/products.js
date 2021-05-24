@@ -36,6 +36,7 @@ export const state = () =>({
     {
       state.choices = product
     },
+
     setChoicesForUser(state, product)
     {
       state.choicesForUser = product
@@ -46,6 +47,7 @@ export const state = () =>({
   export const actions = {
     async getProducts({commit},params){
       this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
+     
       const products = await  this.$axios.$post('/api/products/index?page=' +params.page)
       commit('setProducts', products)
     },
@@ -87,6 +89,7 @@ export const state = () =>({
       const products = await  this.$axios.$post('/api/products/getChoicesForUser')
       commit('setChoicesForUser', products)
     },
+    
   }
 
   export const getters = {
@@ -96,5 +99,7 @@ export const state = () =>({
     updateMessage:s=>s.updateMessage,
     choiceMessage:s=>s.choiceMessage,
     choices:s=>s.choices,
-    choicesForUser:s=>s.choicesForUser
+    choicesForUser:s=>s.choicesForUser,
+    
+    
   }

@@ -1,12 +1,17 @@
 
 export const state = () =>({
-    categories: []
+    categories: [],
+    categoriesWithPr:{}
   })
 
   export const mutations = {
     setCategories(state, categories)
     {
       state.categories = categories
+    },
+    setCategoriesWithPr(state, categories)
+    {
+      state.categoriesWithPr = categories
     }
   }
 
@@ -17,9 +22,14 @@ export const state = () =>({
       const categories = await  this.$axios.$get('/api/categories/index')
 
       commit('setCategories', categories)
+    },
+    async getCategoriesWithPr({commit},){
+      const categories = await  this.$axios.$get('/api/categories/CategoryWithProducts')
+      commit('setCategoriesWithPr', categories)
     }
   }
 
   export const getters = {
-    categories: s => s.categories
+    categories: s => s.categories,
+    CategoriesWithPr:s=>s.categoriesWithPr
   }

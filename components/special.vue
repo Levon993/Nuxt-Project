@@ -5,6 +5,7 @@
   <p>Солнечные цены
     от Солнечного
   </p>
+  <button class='btn-reg' @click="$router.push('/specials')"> Показать Еще</button>
        <img class="png" :src="require('@/assets/icons/sunny2.png')" alt="">
   </div>    
   <div class="items">
@@ -70,23 +71,25 @@ font-weight:bold;
 .items
 {
   display: grid;
-  grid-template-columns: 160px 160px 160px 160px;
-  grid-template-rows: 250px 250px;
   
+  grid-template-columns: 170px 170px 170px 170px;
+  grid-template-rows: 280px 280px;
 }
 .item
 {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid silver;
-  margin: 2px;
-  border-radius: 2px;
+  
+  margin: 12px;
+  border-radius: 8px;
  font-family: "Roboto";
  font-weight: 600;
  padding: 3px;
  box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
+transition-delay: 200ms;
 }
+
 
 .item:hover
 {
@@ -135,5 +138,22 @@ z-index: 111111111111111;
 .old_price
 {
   color: red;
+}
+.btn-reg
+{
+    margin-top: 8px;
+    width: 130px;
+    height: 30px;
+    border-style: none;
+    outline: 0;
+    outline-offset: 0;
+    background-color: rgb(39, 193, 240);
+    box-shadow: 3px 3px 3px  rgb(36, 37, 37) ;
+    font-family: "Roboto";
+    font-size: 15px;
+}
+.btn-reg:active  {
+   
+   box-shadow: 1px 1px 1px  rgb(100, 231, 206) ;
 }
 </style>

@@ -1,17 +1,17 @@
 <template>
 <div class="container">
     <div class="slider">
-      <vs-card-group>
-    <vs-card v-for="card in 6" :key="card">
+      <vs-card-group >
+    <vs-card  v-for="offer in offers " :key="offer.id">
       <template #title>
-        <h3>Pot with a plant</h3>
+        <h3>{{offer.title}}</h3>
       </template>
       <template #img>
-        <img :src="require('@/assets/img/foto2.jpg')" alt="">
+        <img class="imag" :src="'http://shop.laravel.loc/storage/images/'+offer.img" alt="">
       </template>
       <template #text>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          {{offer.description}}
         </p>
       </template>
       <template #interactions>
@@ -70,29 +70,42 @@
       BuyersChoice
       }, 
       async asyncData({app,store}){
-    // try{
+     try{
         const token = app.$cookiz.get('token')
-//if (store.getters['products/choices'].length === 0)
-     // {
+
+      {
          console.log('sdsdsdsdsd')
          await store.dispatch('products/ChoicesForUser',{token: token})
-    // }
-    //  }catch(e)
-    //    {
+     }
+     }catch(e)
+      {
 
-  //   }
+     }
 
   },
       data:(()=>{
       return{
-        specData:{}
+        specData:{},
+        offers:{}
       }  
     }),
       mounted()
       {
         this.getChoices()
+        this.getOffers()
       },
       methods:{
+        async  getOffers(){
+            //try{
+             await this.$store.dispatch('offers/getOffers')
+            const res = await this.$store.getters['offers/offers']
+              this.offers = res;
+       // }catch(e)
+       // {
+
+       // }
+       },
+
         async  getChoices(){
         //try{
          const res = await this.$store.getters['products/choicesForUser']
@@ -108,9 +121,11 @@
     }
   </script>
   <style>
+    
     .slider
     {
-      width: 1200px;
+      
+     width: 1200px;
       min-width: 500px;
       display: flex;
       justify-content: center;
@@ -206,6 +221,7 @@ margin-top: 25px;
   }
   .slider{
     margin-left: 150px;
+    
   }
 }
     
