@@ -13,11 +13,11 @@
      <img :src="require(`@/assets/img/${product.img}`)" alt="">
      <p>{{product.description}}</p>
      <div class="prices">
-     <p class="price">545</p>
-     <p class="old_price"><strike>545</strike></p>
+     <p class="price">545 р</p>
+     <p class="old_price"><strike>545 р</strike></p>
      </div>
     <div class="icons">
-  <button class="wish"><i class='bx bx-bookmark-heart'></i></button>
+  
   <button class="basket"><i class='bx bx-basket'></i></button>
   </div>
     </div>
@@ -72,7 +72,7 @@ font-weight:bold;
 {
   display: grid;
   
-  grid-template-columns: 170px 170px 170px 170px;
+  grid-template-columns: 175px 175px 175px 175px;
   grid-template-rows: 280px 280px;
 }
 .item
@@ -80,22 +80,21 @@ font-weight:bold;
   position: relative;
   display: flex;
   flex-direction: column;
-  
+  cursor: pointer;
   margin: 12px;
   border-radius: 8px;
- font-family: "Roboto";
- font-weight: 600;
- padding: 3px;
- box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
-transition-delay: 200ms;
+  font-family: "Roboto";
+  font-weight: 600;
+  padding: 3px;
+   transition: 300ms;
 }
 
 
 .item:hover
 {
   position: relative;
- width: 160px;
- height: 270px;
+
+ box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
  
  
 z-index: 111111111111111;
@@ -122,8 +121,16 @@ z-index: 111111111111111;
 }
 .basket
 {
-   background-color: #663399;
-     margin: 3px;
+   background-color: rgb(1, 54, 63);
+     width: 55px;
+     margin-right: 7px;
+     margin-bottom: 5px;
+     transition: 200ms;
+}
+.basket:hover
+{
+   background-color: rgb(8, 89, 104);
+     
 }
 .prices
 {

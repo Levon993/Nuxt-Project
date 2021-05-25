@@ -96,7 +96,7 @@ this.getCategories()
 }
 .contant
 {
-
+     width: 1200px;
     min-width: 500px;
     display: flex;
     flex-direction: column;
@@ -148,7 +148,6 @@ this.getCategories()
     border-radius: 8px;
     background-color: white;
     border: 1px solid silver;
-    transition-delay: 100ms;
     z-index: 1111111111111111;
 
 }
@@ -156,7 +155,6 @@ this.getCategories()
 {
     overflow: auto;
     display: none;
-    transition-delay: 100ms;
 }
 .list
 {
