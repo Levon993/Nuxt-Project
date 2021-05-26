@@ -2,15 +2,15 @@
 <div class="container">
     <div class="slider">
       <vs-card-group >
-    <vs-card  v-for="offer in offers " :key="offer.id">
+    <vs-card v-for="offer in offers " :key="offer.id">
       <template #title>
         <h3>{{offer.title}}</h3>
       </template>
       <template #img>
-        <img class="imag" :src="'http://shop.laravel.loc/storage/images/'+offer.img" alt="">
+        <img class="imag"  :src="'http://shop.laravel.loc/storage/images/'+offer.img" alt="">
       </template>
       <template #text>
-        <p>
+        <p class="offer_desc">
           {{offer.description}}
         </p>
       </template>
@@ -86,7 +86,8 @@
       data:(()=>{
       return{
         specData:{},
-        offers:{}
+        offers:{},
+        basketData:[]
       }  
     }),
       mounted()
@@ -116,9 +117,48 @@
 
        // }
        },
+         getBasketformStorage(){
+          this.basketData = []   
+          let products = localStorage.getItem('BasketData') ? JSON.parse(localStorage.getItem('BasketData')) :[]
+
+           let basket = JSON.parse(localStorage.getItem('Basket'))
+  
+           let item = {
+               title:'',
+               category: '',
+               count:'',
+               brand: '',
+               description:''
+           }
+           if(basket && products) {
+               basket.map(b => {
+                   products.map(p => {
+                       if (p.id === b.id) {
+                           item = {
+                               id: p.id,
+                               title: p.title,
+                               count: b.count,
+                               description: p.description,
+                               img: p.img,
+                               price: p.price
+
+
+                           }
+                           this.basketData.push(item)
+                           {
+                               return 'lkdkfdlkfl'
+                           }
+                       }
+                   })
+               })
+           }
+
+          console.log(this.basketData)
+       }
+        }
       }
 
-    }
+    
   </script>
   <style>
     
@@ -129,6 +169,11 @@
       min-width: 500px;
       display: flex;
       justify-content: center;
+    }
+    .offer_desc
+    {
+    font-size: 15px !important;
+     font-weight: bold;
     }
   .container
   {

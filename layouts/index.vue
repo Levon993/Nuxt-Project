@@ -2,20 +2,22 @@
 <div class="container">
     <div class="header"> 
     <div @click="navbar = !navbar"><i  class='bx menu' :class="{'bx-menu':!navbar,'bx-x':navbar}"></i></div>
+   <p class="name" @click="$router.push('/')">Солнечный</p>
     <div><input type="text" class="search">
     <button class="btn-reg"><i  class='bx bx-search'></i></button>
     </div>
-    <div>
+       <div class="nav_buttons">
         <button class="btn-reg"><nuxt-link active-class to="/login">login</nuxt-link></button>
         <button class="btn-reg">regiser</button>
         </div>
     </div>
     <div>
     <nav  :class="{nav:navbar, navnone:!navbar}">
-            <div class="logo_text">Solnechniy</div>
+        <div class="nav_close" @click="navbar = false">X</div>
+            <div class="logo_text">Каталог</div>
             <ul class="list">
                 <li v-for="category in categories" :key="category.id">
-                   <img class="png" :src="require(`@/assets/icons/${category.img}`)"> <nuxt-link  exect no-prefetch active-class :to="`/product/${category.id}`">  <p>{{category.title}}</p> </nuxt-link>
+                   <nuxt-link  exect no-prefetch active-class :to="`/product/${category.id}`">  <p class="category_name">{{category.title}}</p> </nuxt-link>
                 </li>
              </ul>
         </nav>
@@ -141,7 +143,7 @@ this.getCategories()
 .nav{
     overflow-y: scroll;
     position: fixed;
-    top: 95px;
+    top: 0px;
     left: 0;
     width: 30%;
     height: 700px;
@@ -149,7 +151,27 @@ this.getCategories()
     background-color: white;
     border: 1px solid silver;
     z-index: 1111111111111111;
+}
+.nav_close
+{
+    width: 50px;
+    position:absolute;
+    font-size: 30px;
+    right: 0;
+    margin: 18px;
+    border: 1px solid silver;
+    text-align: center;
+    transition: 200ms;
+}
+.nav_close:hover
+{
+background: silver;
+color: white;
+}
+.category_name
+{
 
+    font-size: 25px;
 }
 .navnone
 {
@@ -169,6 +191,7 @@ this.getCategories()
    text-align: center;
    align-items: center;
    font-family: 'Roboto';
+   font-size: 20px;
 }
 .logo_text{
     text-align: center;
@@ -191,11 +214,25 @@ this.getCategories()
     margin: 5px;
     padding: 5px;
   }
+  .name
+  {
+      font-size: 40px;
+      color: yellowgreen;
+     font-family: 'Pacifico', cursive;
+      cursor: pointer;
+  }
   .active
   {
    border-bottom: 1px solid red;
   }
-
+  .nav_buttons
+  {
+    
+  }
+.basket_button
+{
+    display: flex;
+}
 @media screen and (max-width: 600px) { 
 
 .btn-reg

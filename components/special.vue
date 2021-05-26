@@ -13,12 +13,12 @@
      <img :src="require(`@/assets/img/${product.img}`)" alt="">
      <p>{{product.description}}</p>
      <div class="prices">
-     <p class="price">545 р</p>
-     <p class="old_price"><strike>545 р</strike></p>
+     <p class="price">{{product.price}} р</p>
+     <p class="old_price"><strike>{{product.old_price}} р</strike></p>
      </div>
     <div class="icons">
   
-  <button class="basket"><i class='bx bx-basket'></i></button>
+  <button class="basket" @click="addToBasket(product.id)"><i class='bx bx-basket'></i></button>
   </div>
     </div>
   </div>
@@ -28,8 +28,87 @@
 <script>
 export default {
  props:['data'],
+ data:(()=>{
+   basket:[]
+ }),
  mounted(){
    console.log(this.data);
+ },  
+
+ methods:{
+   addToBasket(id){
+                let basket =[]
+                let item = {}
+                let count = 1;
+                if(localStorage.getItem('Basket'))
+                {
+                     basket = JSON.parse(localStorage.getItem('Basket'))
+
+                  }
+                //если корзина не пуста
+                if(basket.length){
+                 // console.log('bsbsb', basket);return
+
+                    for (let i =0; i < basket.length; i++)
+                    {
+                        if(basket[i].id == id)
+                        {
+                            basket[i].count ++
+                             localStorage.removeItem("Basket");
+                             localStorage.removeItem('BasketData')
+
+                           // localStorage.clear()
+                            this.getProductsForBasket(basket)
+                           
+                            localStorage.setItem('Basket', JSON.stringify(basket))
+                            setTimeout(()=>
+                            {
+                                this.$parent.getBasketformStorage()
+                            },1000)
+                            return
+                        }
+                    }
+                    item = {
+                        id:id,
+                        count:count
+                    }
+                    basket.push(item)
+                    console.log()
+                    //localStorage.clear()
+                    localStorage.removeItem("Basket");
+                    localStorage.removeItem('BasketData')
+                    this.getProductsForBasket(basket)
+                    localStorage.setItem('Basket', JSON.stringify(basket));
+                    setTimeout(()=>
+                    {
+                        this.$parent.getBasketformStorage()
+                    },1000)
+                    return;
+
+                }
+                else{
+                    //Если корзина пуста, то в localstorage добавляется обьект с id и count
+                     item = {
+                        id:id,
+                        count:count
+                    }
+                    basket.push(item)
+                    this.getProductsForBasket(basket)
+                    localStorage.setItem('Basket', JSON.stringify(basket));
+                     setTimeout(()=>
+                     {
+                         this.$parent.getBasketformStorage()
+                     },1000)
+
+                }
+                
+
+            },
+            async getProductsForBasket(data)
+            {
+               const res = await this.$axios.$post('/api/orders/getProductsForBasket',data)
+                localStorage.setItem('BasketData', JSON.stringify(res))
+            },
  }
 }
 

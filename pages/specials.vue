@@ -5,8 +5,8 @@
          <p>{{product.description}}</p>
          <div>
         <div class="prices">
-         <p class="price">545 р</p>
-         <p class="old_price"><strike>545 р</strike></p>
+         <p class="price">{{product.price}} р</p>
+         <p class="old_price"><strike>{{product.old_price}}р</strike></p>
             <button class="basket"><i class='bx bx-basket'></i></button>
 
       </div>
@@ -82,19 +82,6 @@ transition: 200ms;
  box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
 
 }
-
-.icons 
-{
-    
-    
-    
-}
- .basket
-{
-  
-   
-}
-
 .basket
 {
     font-size: 20px;
@@ -105,8 +92,12 @@ transition: 200ms;
      margin: 3px;
      width: 55px;
      font-size: 25px;
-     margin-left:  20px; 
+     margin-left:  12px; 
      margin-bottom: 5px;
+     transition: 200ms;
+}
+.basket:hover{
+    background-color:   rgb(66, 149, 134) ;
 }
 .prices
 {
