@@ -121,7 +121,7 @@ export default {
         try{
          //const res = await this.$store.getters['products/products']
          //this.products = res.data 
-        //console.log(this.products);
+       
        }catch(e)
         {
 

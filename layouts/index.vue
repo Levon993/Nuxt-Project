@@ -2,6 +2,8 @@
 <div class="container">
     <div class="header"> 
     <div @click="navbar = !navbar"><i  class='bx menu' :class="{'bx-menu':!navbar,'bx-x':navbar}"></i></div>
+    <div v-if="!basket" @click="basket = !basket"><i  class='bx basket bx-basket'></i></div>
+    <div v-if="basket" @click="basket = !basket" class="basket_x"><i  class='bx bx-basket basket_i' ></i><p>X</p></div>
    <p class="name" @click="$router.push('/')">Солнечный</p>
     <div><input type="text" class="search">
     <button class="btn-reg"><i  class='bx bx-search'></i></button>
@@ -21,6 +23,9 @@
                 </li>
              </ul>
         </nav>
+    
+           <Basket v-show="basket" :basket="basketData"/>
+        
 </div>
     <div class="contant">
 <nuxt/>
@@ -33,23 +38,28 @@
 <script>
 import NavBar from '@/components/user/NavBar'
 import Footer from '@/components/footer'
+import Basket from '@/components/Basket'
 import token from '@/mixins/token.js'
 export default {
     components:{
      NavBar,
-     Footer
+     Footer,
+     Basket
     },
     mixins:[token],
         data:(()=>{
         return{
+            basket:false,
             navbar:false,
             pet:false,
+            basketData:{},
             categories:{}
         }
     }),
   mounted(){
-this.getCategories()
-
+  this.getCategories()
+  this.getBasketData()
+  
   },
 
   methods:{
@@ -64,6 +74,41 @@ this.getCategories()
 
         }
        },
+       getBasketData()
+       {
+           this.basketData = []   
+           let products = localStorage.getItem('BasketData') ? JSON.parse(localStorage.getItem('BasketData')) :[]
+
+           let basket = JSON.parse(localStorage.getItem('Basket'))
+  
+           let item = {
+               title:'',
+               category: '',
+               count:'',
+               brand: '',
+               description:''
+           }
+           if(basket && products) {
+               basket.map(b => {
+                   products.map(p => {
+                       if (p.id === b.id) {
+                           item = {
+                               id: p.id,
+                               title: p.title,
+                               count: b.count,
+                               description: p.description,
+                               img: p.img,
+                               price: p.price
+
+
+                           }
+                           this.basketData.push(item)
+                         
+                       }
+                   })
+               })
+           }
+       }
   }
     
 }
@@ -95,7 +140,41 @@ this.getCategories()
 {
    border: 1px solid silver;
    font-size: 40px;
+   
 }
+.basket
+{
+   width: 100px;
+   border: 1px solid silver;
+   font-size: 40px;
+   text-align: center;
+   border-radius: 5px;
+   background: rgb(10, 92, 10);
+   color: white;
+   cursor: pointer; 
+}
+.basket_x
+{
+   width: 100px;
+   height: 55px;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   font-size: 40px;
+   text-align: center;
+   border-radius: 5px;
+   background: rgb(10, 92, 10);
+   color: white;
+   cursor: pointer; 
+}
+.basket_x p
+{
+ 
+   text-align: center;
+   margin-top: 13px;
+   font-size: 30px;
+}
+
 .contant
 {
      width: 1200px;

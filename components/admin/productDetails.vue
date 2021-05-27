@@ -86,13 +86,13 @@ export default {
        {
              await this.$store.dispatch('products/update',{product:this.product, token: this.token})
             const res  = await this.$store.getters['products/updateMessage']
-           console.log(res);
+           
        },
       async addToChoice(id)
        {
             await this.$store.dispatch('products/addToChoice',{id:id, token: this.token})
             const res  = await this.$store.getters['products/choiceMessage']
-           console.log(res);
+           
        },
        close(e)
        {
@@ -105,7 +105,7 @@ export default {
 <style scoped>
 .container
 {
-   position:absolute;
+    position:absolute;
     width: 100%;
     height: 100%;
     display: flex;

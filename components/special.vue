@@ -29,10 +29,12 @@
 export default {
  props:['data'],
  data:(()=>{
+   return{
    basket:[]
+   }
  }),
  mounted(){
-   console.log(this.data);
+  
  },  
 
  methods:{
@@ -47,7 +49,7 @@ export default {
                   }
                 //если корзина не пуста
                 if(basket.length){
-                 // console.log('bsbsb', basket);return
+                
 
                     for (let i =0; i < basket.length; i++)
                     {
@@ -73,7 +75,7 @@ export default {
                         count:count
                     }
                     basket.push(item)
-                    console.log()
+                  
                     //localStorage.clear()
                     localStorage.removeItem("Basket");
                     localStorage.removeItem('BasketData')
