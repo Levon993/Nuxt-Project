@@ -84,8 +84,8 @@ export const state = () =>({
       const products = await  this.$axios.$post('/api/products/getChoices')
       commit('setChoices', products)
     },
-    async ChoicesForUser({commit},params){
-      this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
+    async ChoicesForUser({commit}){
+     
       const products = await  this.$axios.$post('/api/products/getChoicesForUser')
       commit('setChoicesForUser', products)
     },

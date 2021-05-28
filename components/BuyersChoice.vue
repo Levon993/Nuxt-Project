@@ -2,7 +2,7 @@
   <div class="container">
     <div class="wrapper">
 <div class="text">
-  <p>Выбор Покупателя
+  <p>Солнечные цены
   </p>
        <img class="png" :src="require('@/assets/icons/woman.png')" alt="">
   </div>    

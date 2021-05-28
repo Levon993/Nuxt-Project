@@ -2,8 +2,7 @@
   <div class="container">
     <div class="wrapper">
 <div class="text">
-  <p>Солнечные цены
-    от Солнечного
+  <p>Выбор покупателя
   </p>
   <button class='btn-reg' @click="$router.push('/specials')"> Показать Еще</button>
        <img class="png" :src="require('@/assets/icons/sunny2.png')" alt="">

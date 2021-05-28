@@ -9,16 +9,8 @@
          <p class="old_price"><strike>{{product.old_price}}р</strike></p>
             <button class="basket"><i class='bx bx-basket'></i></button>
 
-      </div>
-
-         
-            
-        
+      </div> 
     </div>
-    </div>
-    </div>
-    </template>
-  </vs-card>
     </div>
     </div>
 </template>

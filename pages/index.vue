@@ -71,11 +71,11 @@
       }, 
       async asyncData({app,store}){
      try{
-        const token = app.$cookiz.get('token')
+        
 
       {
         
-         await store.dispatch('products/ChoicesForUser',{token: token})
+         await store.dispatch('products/ChoicesForUser')
      }
      }catch(e)
       {

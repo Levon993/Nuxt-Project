@@ -108,7 +108,45 @@ export default {
                    })
                })
            }
+       },
+       getBasketformStorage(){
+          this.basketData = []   
+          let products = localStorage.getItem('BasketData') ? JSON.parse(localStorage.getItem('BasketData')) :[]
+
+           let basket = JSON.parse(localStorage.getItem('Basket'))
+  
+           let item = {
+               title:'',
+               category: '',
+               count:'',
+               brand: '',
+               description:''
+           }
+           if(basket && products) {
+               basket.map(b => {
+                   products.map(p => {
+                       if (p.id === b.id) {
+                           item = {
+                               id: p.id,
+                               title: p.title,
+                               count: b.count,
+                               description: p.description,
+                               img: p.img,
+                               price: p.price
+
+
+                           }
+                           this.basketData.push(item)
+                           this.getBasketData()
+                           
+                           
+                       }
+                   })
+               })
+           }
+
        }
+
   }
     
 }
