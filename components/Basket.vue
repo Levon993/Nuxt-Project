@@ -15,7 +15,7 @@
  </div>
  <div class="sum"><p class="count">{{data.price * data.count}} р</p></div>
  <div class="delete">
- <button >Удалить</button>
+ <button @click="itemDelete(data.id)" >Удалить</button>
  </div>  
 
    </div>
@@ -99,6 +99,18 @@ export default {
           })
            
        },
+       itemDelete(id)
+        {
+         if(confirm('Вы действительо хотите удалить продукт из коризины?'))
+            {
+           
+           let basket =  JSON.parse(localStorage.getItem('Basket'))
+           let nonDelete =  basket.filter(b => b.id != id)
+           localStorage.removeItem('Basket')
+           localStorage.setItem('Basket',JSON.stringify(nonDelete))
+           this.basket = this.basket.filter(b=> b.id != id)
+            }
+       },
        send()
        {
            console.log(this.basket);
@@ -109,17 +121,19 @@ export default {
 <style scoped>
 .basket_form
 {
-    position:fixed;
+    position:absolute;
     margin-bottom: 25px;
     width: 100%;
-    height: 700px;
+    min-width: 1000px;
+    height: 100%;
     right: 0;
     top: 0;
+    left: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: white;
-    z-index: 11111111111;
+    z-index: 111111111111111111;
 }
 .basket_text
 {

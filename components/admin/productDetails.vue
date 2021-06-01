@@ -40,6 +40,7 @@
 <div class="foem_item btns">
 <button @click="updateProduct()">Редакировать</button>
 <button @click="addToChoice(product.id)">Добавить в избранные</button>
+<button @click="addToDiscount(product.id)">Добавить в Скидки</button>
 </div>
   </div>
      </div>
@@ -93,6 +94,17 @@ export default {
             await this.$store.dispatch('products/addToChoice',{id:id, token: this.token})
             const res  = await this.$store.getters['products/choiceMessage']
            
+       },
+     async  addToDiscount(id)
+       {
+         await this.$store.dispatch('products/addToDiscount',{id:id, token: this.token})
+            const res  = await this.$store.getters['products/discountMessage']
+            this.$vs.notification({
+                    color: "success",
+                    position: "top-right",
+                    title: "Успешно",
+                    text: "Продукт успешно добавлен в список скидек"
+                });
        },
        close(e)
        {

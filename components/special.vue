@@ -5,7 +5,7 @@
   <p>Выбор покупателя
   </p>
   <button class='btn-reg' @click="$router.push('/specials')"> Показать Еще</button>
-       <img class="png" :src="require('@/assets/icons/sunny2.png')" alt="">
+       <img class="png" :src="require('@/assets/icons/woman.png')" alt="">
   </div>    
   <div class="items">
     <div v-for="product in data" :key="product.id" class="item">
@@ -131,7 +131,7 @@ export default {
   justify-content: start;
   align-items:center;
   padding: 10px;
-  background-color: #ffbf94;
+  background-color:#77c4d3;
   border-radius:8px;
   box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
 }
@@ -139,14 +139,16 @@ export default {
 {
 margin: 5px;
 padding: 12px;
-font-family: "Roboto";
+font-family: 'Lobster', cursive;
 font-weight:bold;
+font-size: 30px;
 }
 .png
 {
-  margin-top: 50px;
-  width:120px;
-  height: 120px;
+  margin-top: 100px;
+  width:160px;
+  height: 160px;
+  
 }
 .items
 {
@@ -168,6 +170,7 @@ font-weight:bold;
   padding: 3px;
    transition: 300ms;
 }
+
 
 
 .item:hover
@@ -228,16 +231,17 @@ z-index: 111111111111111;
 }
 .btn-reg
 {
-    margin-top: 8px;
-    width: 130px;
-    height: 30px;
+    margin-top: 120px;
+    width: 160px;
+    height: 50px;
     border-style: none;
+    border-radius: 6px;
     outline: 0;
     outline-offset: 0;
     background-color: rgb(39, 193, 240);
     box-shadow: 3px 3px 3px  rgb(36, 37, 37) ;
-    font-family: "Roboto";
-    font-size: 15px;
+    font-family: 'Lobster', cursive;
+    font-size: 20px;
 }
 .btn-reg:active  {
    

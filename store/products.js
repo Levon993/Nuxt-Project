@@ -7,6 +7,7 @@ export const state = () =>({
     choiceMessage:{},
     choices:{},
     choicesForUser:{},
+    discountMessage:{},
     message:[]
   })
 
@@ -40,6 +41,10 @@ export const state = () =>({
     setChoicesForUser(state, product)
     {
       state.choicesForUser = product
+    },
+    setDiscountMessage(state, message)
+    {
+    state.discountMessage = message
     }
 
   }
@@ -89,7 +94,11 @@ export const state = () =>({
       const products = await  this.$axios.$post('/api/products/getChoicesForUser')
       commit('setChoicesForUser', products)
     },
-    
+    async addToDiscount({commit},params){
+      this.$axios.defaults.headers.common['Authorization'] = `Bearer ${params.token}`
+      const message = await  this.$axios.$post('/api/products/addToDiscount', {productId:params.id})
+      commit('setDiscountMessage', message)
+    },
   }
 
   export const getters = {
@@ -100,6 +109,6 @@ export const state = () =>({
     choiceMessage:s=>s.choiceMessage,
     choices:s=>s.choices,
     choicesForUser:s=>s.choicesForUser,
-    
+    discountMessage: s=>s.discountMessage
     
   }

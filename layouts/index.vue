@@ -25,7 +25,7 @@
         </nav>
     
            <Basket v-show="basket" :basket="basketData"/>
-        
+       
 </div>
     <div class="contant">
 <nuxt/>
@@ -345,6 +345,15 @@ color: white;
   .nav_buttons
   {
     
+  }
+  .bask_cont
+  {
+      position:absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      z-index:7777777777777777 ;
+      left: 0;
   }
 .basket_button
 {
