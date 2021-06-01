@@ -1,11 +1,12 @@
 <template>
     <div class="order">
+         <div @click="$parent.show = false" class="close">X</div>
         <div class="map">
 <GmapMap 
 :center="{lat:55.91675056131745, lng:37.41215038395942}"
 :zoom="7"
-style="width: 700px; height: 500px;"
-@click="mark"
+style="width: 500px; height: 400px;"
+@click="getGoogleApi"
 >
 <GmapMarker
 v-if="position"
@@ -24,9 +25,9 @@ v-if="position"
     <button class="btn_q2">Самоывоз</button>
 </div>
 <div class="form">
-<div class="form_item">
+<div class="form_item" id="addres_cont">
     <label for="addres">Адрес Доставки</label>
-<input id='addres' :disabled="disabled" type="text">
+<input id='addres' v-model="orderData.address"  :disabled="disabled" type="text">
 </div>
 <div class="form_item">
 <label for="home">Дом</label>
@@ -49,20 +50,25 @@ v-if="position"
 <input id="Kvar" :disabled="disabled" type="text">
 </div>
 </div>
+
     </div>
 </template>
 <script>
 export default {
 data:(()=>{
 return {
+    orderData:{
+        address:''
+    },
     disabled:true,
     marker:[],
+    name:'',
     position:{lat:55.91675056131745, lng:37.41215038395942},
 adreses:[]
 }
 }) ,
 mounted(){
-this.getGoogleApi()
+//this.getGoogleApi()
 this.$getLocation({})
   .then(coordinates => {
     this.position.lat = coordinates.lat
@@ -78,24 +84,40 @@ methods:{
     {
      this.position.lat =  event.latLng.lat()
      this.position.lng = event.latLng.lng()
-    },
-   async  getGoogleApi()
+     const res =  fetch('http://maps.google.com/maps/api/geocode/xml?address=Нижний%20Новгород&sensor=false')
+    res.then((result) => {
+        
+    }).catch((err) => {
+        
+    });
+   },
+   async  getGoogleApi(event)
     {
-        const ket = 'AIzaSyDFeMlNRXL-3LlO5c3ncdpZXGpTr69fGm4'
+       
+        this.position.lat =  event.latLng.lat()
+        this.position.lng = event.latLng.lng()
+        
+        
     //   const res = await this.$axios.$post(`https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDFeMlNRXL-3LlO5c3ncdpZXGpTr69fGm4`)
-   const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=40.177628,44.512546&key=AIzaSyDFeMlNRXL-3LlO5c3ncdpZXGpTr69fGm4')
+   const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.position.lat},${this.position.lng}&key=AIzaSyDFeMlNRXL-3LlO5c3ncdpZXGpTr69fGm4`)
     
-     res.json().then(r =>{
-         console.log(r.results);
-         let addres = r.results.map(m =>
-         {
-         return{
-             name:m.address_components[0].long_name,
-             location:m.geometry.location 
-         }
-       })
-     //console.log(addres);
+    await res.json().then(r =>{
+         this.name = r.results[0].formatted_address
+         this.orderData.address = r.results[0].formatted_address
+         this.name =  this.name.replace(',', '');
+         this.name =  this.name.replace('.', '');
+         this.name =  this.name.replace(',', '');
+         this.name =  this.name.replace(' ', '+');
+         this.name =  this.name.replace(' ', '+');
+         this.name =  this.name.replace(' ', '+');
+         
+         
      })
+     console.log('name',this.name);
+     const resp =  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.name},+CA&key=AIzaSyDFeMlNRXL-3LlO5c3ncdpZXGpTr69fGm4`)
+       this.name = ''
+    resp.then(r=>{r.json().then(r=> console.log('addres',r))})
+    
     },
     
   
@@ -158,6 +180,13 @@ methods:{
     font-size: 20px;
     font-family: 'Roboto';
 }
+#addres_cont
+{
+    width: 600px;
+}
+#addres{
+    width: 600px;
+}
 .btn_q1
 {
     background: rgb(231, 98, 50);
@@ -166,4 +195,20 @@ methods:{
 {
     background: rgb(50, 174, 231);
 }
+.close{
+    position:absolute;
+    right:  0;
+    top: 0;
+    margin: 45px;
+    border: 1px solid silver;
+    width: 45px;
+    cursor: pointer;
+    height: 35px;
+    font-size: 35px;
+    color: black;
+    text-align: center;
+    z-index: 88888888888888888888888;
+    transition: 200ms;
+}
+
 </style>

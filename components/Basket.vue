@@ -237,15 +237,16 @@ align-items: center;
 }
 .close{
     position:absolute;
-    left: 2;
+    right: 0;
     top: 0;
-    margin: 15px;
+    margin: 25px;
     border: 1px solid silver;
-    width: 30px;
+    width: 40px;
     cursor: pointer;
-    height: 25px;
+    height: 35px;
     color: black;
     text-align: center;
+    font-size: 30px;
     transition: 200ms;
 }
 .close:hover{
