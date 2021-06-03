@@ -53,7 +53,7 @@
   <Special :data="specData"></Special>
   </div>
   <div class="spec">
-  <BuyersChoice></BuyersChoice>
+  <BuyersChoice  :data="discountData" ></BuyersChoice>
   </div>
   </div>
     </template> 
@@ -63,7 +63,7 @@
     import Slider from '@/components/slider'
     export default{
     
-      layout:'index',
+      
       components:{
       Special,
       Slider,
@@ -76,6 +76,7 @@
       {
         
          await store.dispatch('products/ChoicesForUser')
+         await store.dispatch('products/getDiscountForUser')
      }
      }catch(e)
       {
@@ -86,6 +87,7 @@
       data:(()=>{
       return{
         specData:{},
+        discountData:{},
         offers:{},
         basketData:[]
       }  
@@ -94,28 +96,39 @@
       {
         this.getChoices()
         this.getOffers()
+        this.getDiscounts()
       },
       methods:{
         async  getOffers(){
-            //try{
+            try{
              await this.$store.dispatch('offers/getOffers')
-            const res = await this.$store.getters['offers/offers']
+             const res = await this.$store.getters['offers/offers']
               this.offers = res;
-       // }catch(e)
-       // {
+        }catch(e)
+        {
 
-       // }
+        }
        },
 
         async  getChoices(){
-        //try{
+        try{
          const res = await this.$store.getters['products/choicesForUser']
          this.specData = res 
        
-       // }catch(e)
-       // {
+        }catch(e)
+        {
 
-       // }
+        }
+       },
+       async  getDiscounts(){
+       try{
+         const res = await this.$store.getters['products/discountForUser']
+         this.discountData = res 
+         
+        }catch(e)
+        {
+
+        }
        },
          getBasketformStorage(){
           this.basketData = []   
@@ -183,7 +196,7 @@
    justify-content: center;
   }
   .about_container{
-      min-width: 500px;
+      min-width: 1100px;
        display: flex;
        flex-wrap: wrap;
      }
@@ -245,7 +258,7 @@ margin-top: 25px;
   {
     display: flex;
     justify-content: center;
-    margin-left: 150px;
+    
   }
   .sunny p
   {

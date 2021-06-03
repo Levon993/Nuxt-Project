@@ -49,55 +49,44 @@
         </tr>
       </thead>
       <tbody >
-        <tr v-show="products" v-for="product in products" :key="product.id">
-          <td class="table_item">{{product ? product.title :''}}</td>
+        <tr v-for="product in products.data" :key="product.id">
+          <td class="table_item">{{product.title}}</td>
           <td></td>
           <td></td>
-          <td class="table_item" >{{product.brand ? product.brand.title :''}}</td>
+          <td class="table_item">{{product.brand.title}}</td>
           <td></td>
           <td></td>
           <td class="table_item" >{{product.category.title}}</td>
           <td></td>
           <td></td>
-          <td class="table_item" >{{product.status== 1 ? "Есть" : "Нет"}}</td>
+          <td class="table_item">{{product.status== 1 ? "Есть" : "Нет"}}</td>
           <td></td>
           <td></td>
-          <td class="table_item" >{{product.old_price}}</td>
+          <td class="table_item">{{product.old_price}}</td>
           <td></td>
           <td></td>
-          <td class="table_item"><span :class="{currency_danger:(product.price >= 400)}" class="currency">{{product.price}}$</span></td>
+          <td class="table_item">{{product.price}}</td>
           <td></td>
           <td></td>
-          <td class="table_item"><button @click="ProductDetails(product)" class="change_button">Change</button></td>
+          <td class="table_item"><button @click="ProductDetails(product)" class="change_button">Редактировать</button></td>
         </tr>
       </tbody>
     </table>
    </div>
    <div class="paginate__box">
-        <pagination
-                  class="paginate"
-                 :current="currentPage"
-                  :total="totalPages"
-                  @page-change="getResults">
-         </pagination>
-   </div>
-   
-    <Change v-if="showDetails" :product ="product"></Change>
-   <div @click="add = !add" class="add_product_button">
-      <p>+</p> 
+        
    </div>
 
  </div>
 
 </template>
 <script>
-import AddProduct from '@/components/popup/addProduct'
-import Change from '@/components/admin/productDetails'
+
 
 import token from '@/mixins/token.js'
 export default {
   components:{
-    Change
+    
   },
     middleware:['admin', 'auth'],
     mixins:[token],
@@ -105,15 +94,14 @@ export default {
     async asyncData({app,store}){
      try{
         const token = app.$cookiz.get('token')
-//if (store.getters['products/choices'].length === 0)
-     // {
+     
          const page = 1
-         await store.dispatch('products/getChoice',{page: page, token: token})
-    // }
+         await store.dispatch('products/getDiscounts',{page: page, token: token})
+     
       }catch(e)
         {
 
-     }
+      }
 
   },
     data:(()=>{
@@ -152,14 +140,15 @@ export default {
       
       },
       async  getProducts(){
-        //try{
-         const res = await this.$store.getters['products/choices']
-         this.products = res.data 
-         console.log(res.data[0]['title']);
-       // }catch(e)
-       // {
+        try{
+         const res = await this.$store.getters['products/discounts']
+         this.products = res 
+        
+        console.log(this.products);
+       }catch(e)
+        {
 
-       // }
+        }
        },
       async searchQuery()
        {

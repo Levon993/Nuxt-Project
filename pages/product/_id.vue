@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-    layout:"index",
+    
         data:(()=>{
             return{
                 products:{}

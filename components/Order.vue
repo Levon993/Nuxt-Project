@@ -3,9 +3,10 @@
          <div @click="$parent.show = false" class="close">X</div>
         <div class="map">
 <GmapMap 
-:center="{lat:55.91675056131745, lng:37.41215038395942}"
-:zoom="7"
-style="width: 500px; height: 400px;"
+
+:center="{lat:55.917239150932645, lng:37.413900833372644}"
+:zoom="16"
+style="width: 800px; height: 400px;"
 @click="getGoogleApi"
 >
 <GmapMarker
@@ -17,49 +18,71 @@ v-if="position"
 />
 </GmapMap>
 <div class="buttons">
-<button @click="position ={lat:55.91675056131745, lng:37.41215038395942} ">Магазин</button>
+
 </div>
 </div>
+
 <div class="questions">
     <button class="btn_q1" @click="disabled = false">Доставка</button>
     <button class="btn_q2">Самоывоз</button>
 </div>
+<div class="text" v-if="!disabled">
+    <p>Дорогой покупатель, пожалуста выберите адрес доставки на карте поставив галочку на вашем доме либо на улиц,
+     <small>(либо же введите самостоятельно)</small> и заполните все остальные полья.
+     Подробный адрес избавит вас от уточнений курьеров  
+    <b class="pay">Оплата при дставке </b>
+     </p>
+</div>
 <div class="form">
 <div class="form_item" id="addres_cont">
     <label for="addres">Адрес Доставки</label>
-<input id='addres' v-model="orderData.address"  :disabled="disabled" type="text">
+<input id='addres' v-model="orderUserData.address"  :disabled="disabled" type="text">
 </div>
 <div class="form_item">
 <label for="home">Дом</label>
-<input id="home" :disabled="disabled" type="text">
+<input id="home" v-model="orderUserData.home" :disabled="disabled" type="text">
 </div>
 <div class="form_item">
 <label for="corpus">Корпус</label>
-<input id="corpus" :disabled="disabled" type="text">
+<input id="corpus" v-model="orderUserData.corps" :disabled="disabled" type="text">
 </div>
 <div class="form_item">
 <label for="stroy">Строение</label>
-<input id="stroy" :disabled="disabled" type="text">
+<input id="stroy" v-model="orderUserData.structure" :disabled="disabled" type="text">
 </div>
 <div class="form_item">
 <label for="pod">Подъезд</label>
-<input id="pod" :disabled="disabled" type="text">
+<input id="pod" v-model="orderUserData.entrance" :disabled="disabled" type="text">
 </div>
 <div class="form_item">
 <label for="Kvar">Квартира</label>
-<input id="Kvar" :disabled="disabled" type="text">
+<input id="Kvar" v-model="orderUserData.flat" :disabled="disabled" type="text">
+</div>
+<div class="form_item">
+<label for="email">Email</label>
+<input id="email" v-model="orderUserData.email" :disabled="disabled" type="email">
 </div>
 </div>
+<button @click="addOrder()" class="send">Подтвердить</button>
 
     </div>
 </template>
 <script>
 export default {
+    props:['orderData'],
 data:(()=>{
 return {
-    orderData:{
-        address:''
+    orderUserData:{
+        address:'',
+        home:'5',
+        corps:'6',
+        structure:'3',
+        entrance:'4',
+        flat:'55',
+        email:'levon@mail111111.ru',
+        phone:''
     },
+    
     disabled:true,
     marker:[],
     name:'',
@@ -91,6 +114,12 @@ methods:{
         
     });
    },
+  async addOrder()
+   {
+      await this.$store.dispatch('orders/addOrder',{data:{products:this.orderData, user:this.orderUserData}})
+            const res  = await this.$store.getters['orders/createMessage']
+            console.log(res);
+   },
    async  getGoogleApi(event)
     {
        
@@ -103,7 +132,7 @@ methods:{
     
     await res.json().then(r =>{
          this.name = r.results[0].formatted_address
-         this.orderData.address = r.results[0].formatted_address
+         this.orderUserData.address = r.results[0].formatted_address
          this.name =  this.name.replace(',', '');
          this.name =  this.name.replace('.', '');
          this.name =  this.name.replace(',', '');
@@ -182,10 +211,10 @@ methods:{
 }
 #addres_cont
 {
-    width: 600px;
+    width: 670px;
 }
 #addres{
-    width: 600px;
+    width: 658px;
 }
 .btn_q1
 {
@@ -194,6 +223,29 @@ methods:{
 .btn_q2
 {
     background: rgb(50, 174, 231);
+}
+.send
+{
+    width: 190px;
+    height: 60px;
+    margin: 10px;
+    padding: 10px;
+    background: rgb(9, 30, 221);
+    font-size: 20px;
+    border-radius: 8px;
+    font-family: 'Roboto';
+}
+.text{
+    color: black;
+    width: 730px;
+}
+.text p{
+    font-size: 20px;
+    font-family: 'Roboto';
+}
+.pay
+{
+    color: rgb(38, 221, 108);
 }
 .close{
     position:absolute;

@@ -69,6 +69,7 @@ export default {
   },
     middleware:['admin', 'auth'],
     mixins:[token],
+    layout:'index',
     async asyncData({app,store}){
      try{
         const token = app.$cookiz.get('token')

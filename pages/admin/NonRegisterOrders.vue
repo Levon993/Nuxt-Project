@@ -2,14 +2,6 @@
 
  <div class="orders_page_body">
    
-   <div class="chart">
-   <bar-chart v-show="show"
-        :data="barChartData"
-        :options="barChartOptions"
-        :width="1200"
-        :heigth="650"
-      />
-      </div>
   
    <div class="order_list">
     <table>
@@ -18,27 +10,23 @@
           <th>User</th>
           <th>Status</th>
           <th>created at</th>
-          <th></th>
+          <th>сумма</th>
         </tr>
       </thead>
       <tbody >
-        <tr  v-for="order in orders.data" :key="order.id">
-          <td class="table_item">{{order.name}}</td>
+        <tr  v-for="order in orders.data" :key='order.id' >
+          <td class="table_item">{{order.email}}</td>
           <td class="table_item" >{{order.stataus == 0 ? 'Active' : 'Old'}}</td>
-          <td class="table_item">{{new Date(order.created_at) }}</td>
+          <td class="table_item">{{new Date(order.created_at)}} </td>
 
-          <td class="table_item">{{order.sum}}</td><td class="table_item"><span :class="{currency_danger:(order.sum > 700)}" class="currency">{{order.sum}}$</span> </td>
-          <td class="table_item"><button class="change_button">Change</button></td>
+          <td class="table_item">{{order.sum}} р</td><td class="table_item"> </td>
+          <td class="table_item"><button class="change_button">Детали</button></td>
         </tr>
       </tbody>
     </table>
    </div>
    <div class="paginate__box">
- <pagination
-     class="paginate"
-       :current="currentPage"
-                  :total="totalPages"
-                  @page-change="getResults"></pagination>
+ 
    </div>
 
  </div>
@@ -163,11 +151,11 @@ title: "Orders",
 
      async getorders(){
      //try{
-        this.orders = await this.$store.getters['orders/orders']
+        
         this.$axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
-      const orders = await  this.$axios.$post('/api/orders/NonRegisterIndex?page=' +1)
-      console.log(orders);
-       this.chartGraphic(this.orders)
+      this.orders = await  this.$axios.$post('/api/orders/NonRegisterIndex?page=' +1)
+      console.log(this.orders.data);
+     //  this.chartGraphic(this.orders)
     //}catch(e)
     // {
        

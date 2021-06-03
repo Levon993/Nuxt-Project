@@ -16,7 +16,6 @@
 </template>
 <script>
 export default {
-    layout:'index',
  async asyncData({app,store}){
      try{
         const token = app.$cookiz.get('token') 

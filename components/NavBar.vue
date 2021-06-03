@@ -5,8 +5,9 @@
       <div class="links">
       <div class="link"><nuxt-link  exect no-prefetch active-class to="/">{{$t('home')}}</nuxt-link></div>
       <div class="link"> <nuxt-link active-class to="/admin/products">{{$t('poducts')}}</nuxt-link></div>
-      <div class="link"> <nuxt-link active-class to="/users">{{$t('welcome')}}</nuxt-link></div>
-      <div class="link"> <nuxt-link active-class to="/users">{{$t('brands')}}</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/admin/NonRegisterOrders">БезРег</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/admin/offers">Наборы и предложения</nuxt-link></div>
+      <div class="link"> <nuxt-link active-class to="/admin/discounts">Скидки</nuxt-link></div>  
       <div class="link" ><a href="#"  @click.prevent="logout">{{$t('logout')}}</a> </div>
       </div>
       <div class="user"><p class="auth">{{user.user}}</p> <p>{{$t('working')}}</p></div>
@@ -75,7 +76,7 @@
   {
     grid-column: 4/5;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 15px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 15px;
     grid-template-rows: 100%;
     grid-column-gap: 10px;
     align-items: start;

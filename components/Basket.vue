@@ -1,8 +1,8 @@
 <template>
-<div>
+<div class="body">
  
     <div class="basket_form">
-        <AddOrder v-if="show"/>   
+        <AddOrder :orderData="basket" v-if="show"/>   
  <div class="basket_form_body">
         <div @click="$parent.basket = false" class="close">X</div>
    <div class="basket_item" v-for="data in basket" :key="data.id">
@@ -41,7 +41,8 @@ export default {
     },
     data:(()=>{
          return {
-       show:false   
+       show:false,
+          
     };
     }),
     mounted()
@@ -119,12 +120,13 @@ export default {
 }
 </script>
 <style scoped>
+
 .basket_form
 {
     position:absolute;
     margin-bottom: 25px;
     width: 100%;
-    min-width: 1000px;
+    min-width: 1100px;
     height: 100%;
     right: 0;
     top: 0;
