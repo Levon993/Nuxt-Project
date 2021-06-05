@@ -1,16 +1,26 @@
 <template>
 <div class="container">
+    <div class="alert">
+        <div class="alert_body">
+        <p>Вам есть 18 лет?</p>
+        <div class="yes_or_no">  
+        <button class="yes">Да</button>
+        <button class="no">Нет</button>
+        </div>
+        
+        </div>
+        </div>
     <div class="header"> 
     <div @click="navbar = !navbar" class="catalog"><button><p>Каталог</p><i  class='bx menu' :class="{'bx-menu':!navbar,'bx-x':navbar}"></i></button></div>
     <div v-if="!basket" @click="basket = !basket"><i  class='bx basket bx-basket'></i></div>
     <div v-if="basket" @click="basket = !basket" class="basket_x"><i  class='bx bx-basket basket_i' ></i><p>X</p></div>
    <p class="name" @click="$router.push('/')">Солнечный</p>
-    <div><input type="text" class="search">
-    <button class="btn-reg"><i  class='bx bx-search'></i></button>
+    <div><input type="text" v-model="searchData" class="search">
+    <button class="btn-reg" @click="search"><i  class='bx bx-search'></i></button>
     </div>
        <div class="nav_buttons">
         <button class="btn-reg"><nuxt-link active-class to="/login">Войти</nuxt-link></button>
-        <button class="btn-reg">Регистрация</button>
+        <button class="btn-reg"><nuxt-link  exect no-prefetch active-class :to="`/register`">  Регистрация </nuxt-link></button>
         </div>
     </div>
     <div>
@@ -54,7 +64,8 @@ export default {
             navbar:false,
             pet:false,
             basketData:{},
-            categories:{}
+            categories:{},
+            searchData:''
         }
     }),
   mounted(){
@@ -74,6 +85,16 @@ export default {
         {
 
         }
+       },
+       search()
+       {
+           
+             
+            this.$router.push(`search:${this.searchData}` )
+           //this.$router.push({ name: 'search', query: { page: 2 } })
+        
+          // const res = this.$store.getters['products/search']
+            //console.log(res);
        },
        getBasketData()
        {
@@ -375,7 +396,53 @@ color: white;
 {
     display: flex;
 }
+.alert
+{
+    width: 300%;
+    height: 2000px;
 
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    z-index:555555555555555555555555555;
+   top: 0;
+}
+.alert_body
+{
+    color: white;
+       margin-top:150px ;
+}
+.alert_body p
+{
+  font-size: 30px;
+}
+.yes_or_no
+{
+display: flex;
+justify-content: center;
+}
+.yes{
+margin-right: 25px;
+width:65px;
+height: 60px;
+font-family: 'Roboto';
+font-size: 25px;
+background: cornflowerblue;
+border-style: none;
+}
+.no
+{
+    margin-left: 25px;
+    width:65px;
+    height: 60px;
+    font-family: 'Roboto';
+    font-size: 25px;
+    background: rgb(90, 6, 70);
+    border-style: none;
+}
 @media screen and (max-width: 600px) { 
 .header
 {

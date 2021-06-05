@@ -153,9 +153,8 @@ font-size: 30px;
 .items
 {
   display: grid;
-  
-  grid-template-columns: 175px 175px 175px 175px;
-  grid-template-rows: 280px 280px;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-rows: 350px 350px;
 }
 .item
 {
@@ -189,10 +188,13 @@ z-index: 111111111111111;
     bottom:0;
     right: 0;
 }
+.prices, .icons{
+  margin-bottom: 8px;
+}
 .wish, .basket
 {
    font-size: 20px;
-   border-radius: 8px;
+   border-radius: 5px;
    border-style: hidden;
    color: white;
    
@@ -204,11 +206,19 @@ z-index: 111111111111111;
 }
 .basket
 {
-   background-color: rgb(1, 54, 63);
-     width: 55px;
+     background-color: rgb(1, 54, 63);
+     width: 45px;
+     height: 35px;
+     align-items: center;
      margin-right: 7px;
      margin-bottom: 5px;
+     display: flex;
      transition: 200ms;
+}
+
+.basket > i
+{
+     margin-left: 6px;
 }
 .basket:hover
 {

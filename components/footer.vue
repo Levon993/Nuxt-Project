@@ -1,8 +1,7 @@
 <template>
     <div class="container">
         <div class="footer__body">
-        <div> Контакты</div>
-        <div> О нас</div>
+       
         <div> </div>
        </div>
     </div>
@@ -14,6 +13,7 @@
     min-width: 500px;
     width: 100%;
     height: 100%;
+    background: wheat;
     
 }
 .footer__body{
