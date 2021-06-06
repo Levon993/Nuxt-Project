@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    
+     
     <div class="wrapper">
 <div class="text">
   <p>Выбор покупателя
@@ -17,7 +19,7 @@
      </div>
     <div class="icons">
   
-  <button class="basket" @click="addToBasket(product.id)"><i class='bx bx-basket'></i></button>
+  <button class="basket" @click="addToBasket(product)"><i class='bx bx-basket'></i></button>
   </div>
     </div>
   </div>
@@ -37,7 +39,16 @@ export default {
  },  
 
  methods:{
-   addToBasket(id){
+   addToBasket(product){
+     if(product.category.id == 3)
+     {
+      const age = JSON.parse(localStorage.getItem('_ag'))
+       if(age == 0)
+       {
+       this.$parent.$parent.$parent.child = true;
+       return
+       }
+     }
                 let basket =[]
                 let item = {}
                 let count = 1;
@@ -52,7 +63,7 @@ export default {
 
                     for (let i =0; i < basket.length; i++)
                     {
-                        if(basket[i].id == id)
+                        if(basket[i].id == product.id)
                         {
                             basket[i].count ++
                              localStorage.removeItem("Basket");
@@ -70,7 +81,7 @@ export default {
                         }
                     }
                     item = {
-                        id:id,
+                        id:product.id,
                         count:count
                     }
                     basket.push(item)
@@ -90,7 +101,7 @@ export default {
                 else{
                     //Если корзина пуста, то в localstorage добавляется обьект с id и count
                      item = {
-                        id:id,
+                        id:product.id,
                         count:count
                     }
                     basket.push(item)

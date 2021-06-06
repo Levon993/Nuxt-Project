@@ -1,15 +1,36 @@
 <template>
 <div class="container">
-    <div class="alert">
+    <div class="alert" v-show="question">
         <div class="alert_body">
-        <p>Вам есть 18 лет?</p>
+            <div>
+         <p>Вам есть 18 лет?</p>
+            </div>
         <div class="yes_or_no">  
-        <button class="yes">Да</button>
-        <button class="no">Нет</button>
+        <button class="yes" @click="yes()">Да</button>
+        <button class="no" @click="no()">Нет</button>
         </div>
         
+        <div class="no_child">
+            <div class="age18"><p>18+</p> </div>
+        <p>Продажа алкогольной и табачной
+             продукции осуществляется только
+              лицам старше 18 лет</p>
         </div>
         </div>
+        </div>
+    <div class="alert" v-show="child">
+        <div class="worning_alert_body">
+        <div class="worning_no_child">
+            <div class="worning_age18"><p>18+</p> </div>
+                    <p>Продажа алкогольной и табачной
+                        продукции осуществляется только
+                        лицам старше 18 лет</p>
+             
+        </div>
+         <button class="ok" @click="child=false">ok</button>
+        </div>
+        </div>
+        
     <div class="header"> 
     <div @click="navbar = !navbar" class="catalog"><button><p>Каталог</p><i  class='bx menu' :class="{'bx-menu':!navbar,'bx-x':navbar}"></i></button></div>
     <div v-if="!basket" @click="basket = !basket"><i  class='bx basket bx-basket'></i></div>
@@ -60,6 +81,8 @@ export default {
     mixins:[token],
         data:(()=>{
         return{
+            child:false,
+            question:true,
             basket:false,
             navbar:false,
             pet:false,
@@ -75,6 +98,16 @@ export default {
   },
 
   methods:{
+      yes()
+      {
+          localStorage.setItem('_ag', 1)
+        this.question = false
+          
+      },
+      no(){
+        localStorage.setItem('_ag', 0)
+        this.question = false
+      },
       async  getCategories(){
         try{
             await this.$store.dispatch('categories/getCategories',{ token: this.token})
@@ -277,6 +310,16 @@ export default {
    
    box-shadow: 1px 1px 1px  rgb(100, 231, 206) ;
 }
+.ok 
+{
+    margin-top: 8px;
+    width: 100px;
+    border-style: none;
+    outline: 0;
+    outline-offset: 0;
+    background-color: rgb(202, 231, 206);
+    box-shadow: 3px 3px 3px  rgb(100, 231, 206) ;
+}
  input
 {
   
@@ -400,7 +443,6 @@ color: white;
 {
     width: 300%;
     height: 2000px;
-
     background: rgba(0,0,0,0.5);
     display: flex;
     justify-content: start;
@@ -412,36 +454,119 @@ color: white;
 }
 .alert_body
 {
-    color: white;
+       background: white;
+       width: 350px;
+       height: 470px;
+       color: white;
        margin-top:150px ;
+       color: black;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       border-radius: 5px;
+}
+.worning_alert_body
+{
+       background: white;
+       width: 350px;
+       height: 250px;
+       color: white;
+       margin-top:150px ;
+       color: black;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       border-radius: 5px;
 }
 .alert_body p
 {
   font-size: 30px;
+  font-family: "Roboto";
+  
 }
 .yes_or_no
 {
 display: flex;
 justify-content: center;
+margin-top: 100px;
+
 }
 .yes{
 margin-right: 25px;
-width:65px;
+width:80px;
 height: 60px;
 font-family: 'Roboto';
 font-size: 25px;
 background: cornflowerblue;
 border-style: none;
+border-radius: 5px;
 }
 .no
 {
     margin-left: 25px;
-    width:65px;
+    width:80px;
     height: 60px;
     font-family: 'Roboto';
     font-size: 25px;
     background: rgb(90, 6, 70);
     border-style: none;
+    border-radius: 5px;
+}
+.no_child{
+    display: flex;
+   margin-top: 140px;
+
+}
+.worning_no_child{
+    display: flex;
+}
+.worning_no_child p{
+font-size: 15px;
+font-family: 'Roboto';
+}
+.no_child p{
+font-size: 15px;
+font-family: 'Roboto';
+
+}
+.age18{
+    width: 100px;
+    height: 40px;
+    margin: 15px;
+    border-radius:50%;
+    color: white;
+    background: red;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+}
+
+.age18 p{
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.worning_age18
+{
+    width: 100px;
+    height: 40px;
+    margin: 15px;
+    border-radius:50%;
+    color: white;
+    background: red;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+}
+.worning_age18 p
+{
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 20px;
+    font-weight: bold;
 }
 @media screen and (max-width: 600px) { 
 .header
