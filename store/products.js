@@ -1,6 +1,7 @@
 
 export const state = () =>({
     products: [],
+    product:[],
     search:{},
     addMessage:{},
     updateMessage:{},
@@ -10,7 +11,9 @@ export const state = () =>({
     choicesForUser:{},
     discountMessage:{},
     discountForUser:{},
-    message:[]
+    message:[],
+    recomendations:[],
+    hits:[]
   })
 
   export const mutations = {
@@ -18,7 +21,10 @@ export const state = () =>({
     {
       state.products = products
     },
-
+    setProduct(state, product)
+    {
+      state.product = product
+    },
     setSearch(state, search)
     {
       state.search = search
@@ -39,7 +45,6 @@ export const state = () =>({
     {
       state.choices = product
     },
-
     setChoicesForUser(state, product)
     {
       state.choicesForUser = product
@@ -55,6 +60,14 @@ export const state = () =>({
     setdiscountForUser(state,discountForUser)
     {
       state.discountForUser =discountForUser
+    },
+    setRecomendations(state, recomendations)
+    {
+      state.recomendations = recomendations
+    },
+    setHits(state,hits)
+    {
+      state.hits = hits
     }
 
   }
@@ -118,6 +131,21 @@ export const state = () =>({
       const discounts = await  this.$axios.$get('/api/products/getDiscountsForUsers')
       commit('setdiscountForUser', discounts)
     },
+    async getProductById({commit},params)
+    {
+      const product = await  this.$axios.$post('/api/products/getById',{id:params.id})
+      commit('setProduct', product)
+    },
+    async getRecomendations({commit},params)
+    {
+      const recomendations = await  this.$axios.$post('/api/products/recomended?page=' + params.page,{data:params.data})
+      commit('setRecomendations', recomendations)
+    },
+    async getHits({commit},params)
+    {
+      const hits = await  this.$axios.$post('/api/products/hits?page=' + params.page )
+      commit('setHits',hits)
+    }
   }
 
   export const getters = {
@@ -130,5 +158,8 @@ export const state = () =>({
     choicesForUser:s=>s.choicesForUser,
     discountMessage: s=>s.discountMessage,
     discounts:s=>s.discounts,
-    discountForUser:s=>s.discountForUser    
+    discountForUser:s=>s.discountForUser,    
+    product:s=>s.product,
+    recomendations:s=>s.recomendations,
+    hits:s=>s.hits
   }

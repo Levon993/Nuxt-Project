@@ -82,7 +82,7 @@ export default {
         data:(()=>{
         return{
             child:false,
-            question:true,
+            question:false,
             basket:false,
             navbar:false,
             pet:false,
@@ -94,10 +94,18 @@ export default {
   mounted(){
   this.getCategories()
   this.getBasketData()
-  
+  this.getAgeFromStorage()
   },
 
   methods:{
+      getAgeFromStorage()
+      {
+       if(localStorage.getItem('_ag')){this.question = false}else{this.question =true} 
+        
+        
+     
+
+      },
       yes()
       {
           localStorage.setItem('_ag', 1)
@@ -454,6 +462,7 @@ color: white;
 }
 .alert_body
 {
+    position: fixed;
        background: white;
        width: 350px;
        height: 470px;
@@ -465,6 +474,7 @@ color: white;
        justify-content: center;
        align-items: center;
        border-radius: 5px;
+
 }
 .worning_alert_body
 {

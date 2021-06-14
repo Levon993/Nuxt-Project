@@ -10,7 +10,7 @@
        <img class="png" :src="require('@/assets/icons/woman.png')" alt="">
   </div>    
   <div class="items">
-    <div v-for="product in data" :key="product.id" class="item">
+    <div @click="goProductPage(product.id)" v-for="product in data" :key="product.id" class="item">
      <img :src="require(`@/assets/img/${product.img}`)" alt="">
      <p>{{product.description}}</p>
      <div class="prices">
@@ -39,6 +39,11 @@ export default {
  },  
 
  methods:{
+   goProductPage(id)
+   {
+    
+    this.$router.push(`/users/product/show:${id}`)
+   },
    addToBasket(product){
      if(product.category.id == 3)
      {
