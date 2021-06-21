@@ -1,11 +1,11 @@
 <template>
     <div class="spec_item">
     <div class='item' v-for="product in data" :key='product.id'>
-        <img :src="require(`@/assets/img/${product.img}`)" alt="">
+        <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
          <p>{{product.description}}</p>
          <div>
         <div class="prices">
-         <p class="price">{{product.price}} р</p>
+         <p class="price">{{product.price}}р</p>
          <p class="old_price"><strike>{{product.old_price}}р</strike></p>
             <button class="basket"><i class='bx bx-basket'></i></button>
 

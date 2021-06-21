@@ -2,14 +2,14 @@
   <div class="container">
     <div class="wrapper">
 <div class="text">
-  <p>Выбор покупателя
+  <p>Солнечные Цены
   </p>
-  <button class='btn-reg' @click="$router.push('/specials')"> Показать Еще</button>
-       <img class="png" :src="require('@/assets/icons/woman.png')" alt="">
+  <button class='btn-reg' @click="$router.push('/specials')">Показать Еще</button>
+       <img class="png" :src="require('@/assets/icons/sunny.png')" alt="">
   </div>    
   <div class="items">
     <div v-for="product in data" :key="product.id" class="item">
-     <img :src="require(`@/assets/img/${product.img}`)" alt="">
+     <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
      <p>{{product.description}}</p>
      <div class="prices">
      <p class="price">{{product.price}} р</p>
@@ -131,7 +131,7 @@ export default {
   justify-content: start;
   align-items:center;
   padding: 10px;
-  background-color:#77c4d3;
+  background-color:#fff3e6;
   border-radius:8px;
   box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.6);
 }
@@ -154,8 +154,8 @@ font-size: 30px;
 {
   display: grid;
   
-  grid-template-columns: 175px 175px 175px 175px;
-  grid-template-rows: 280px 280px;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-rows: 350px 350px;
 }
 .item
 {

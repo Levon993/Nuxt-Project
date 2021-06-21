@@ -6,7 +6,7 @@
  <div class="basket_form_body">
         <div @click="$parent.basket = false" class="close">X</div>
    <div class="basket_item" v-for="data in basket" :key="data.id">
-  <img class="basket_img"  :src="require(`@/assets/img/${data.img}`)">
+  <img class="basket_img"  :src="`${$axios.defaults.baseURL}/storage/images/`+data.img">
    <p class="prod_desc">{{data.title}}</p>
  <div class="basket_buttons">
 <button class="minus" @click="minus(data.id)">-</button>
@@ -25,7 +25,7 @@
  <p class="order_desc"> <span class="green">Доставка по городу Химки от 50 рублей</span>
  </p>
   <div>
-      <div @click="show=!show" class="order_button"><p>Офрмить заказ </p></div>
+      <div @click="createOrder()" class="order_button"><p>Офрмить заказ </p></div>
   </div>
 
  </div>
@@ -50,6 +50,21 @@ export default {
       
     },
     methods:{
+        createOrder()
+        {
+            if(!this.basket.length) {
+                this.$vs.notification({
+                    color: "warning",
+                    position: "top-right",
+                    title: "",
+                    text: "Корзина Пуста))"
+                });
+                this.$parent.basket = false
+                
+                }
+            
+            this.show = true
+        },
        plus(id)
        {
         let basket =  JSON.parse(localStorage.getItem('Basket'))

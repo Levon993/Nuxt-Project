@@ -3,7 +3,7 @@
         <div class="category" v-if="!products.length"><h1>Ничего не найдено((</h1></div>
 
     <div class='item' v-for="product in products" :key='product.id'>
-        <img :src="require(`@/assets/img/${product.img}`)" alt="">
+        <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
          <p>{{product.description}}</p>
          <div>
         <div class="prices">

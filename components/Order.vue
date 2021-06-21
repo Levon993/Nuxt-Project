@@ -116,9 +116,26 @@ methods:{
    },
   async addOrder()
    {
+
+       try{
       await this.$store.dispatch('orders/addOrder',{data:{products:this.orderData, user:this.orderUserData}})
             const res  = await this.$store.getters['orders/createMessage']
-            console.log(res);
+           for( let item in this.orderUserData)
+                {
+                    this.orderUserData[item] = ''
+                }
+           localStorage.removeItem("Basket")
+           localStorage.removeItem("BasketData")
+           this.$vs.notification({
+                    color: "success",
+                    position: "top-right",
+                    title: "Успешно",
+                    text: "Ваш заказ успешно добавлен))"
+                });
+       }catch(e)
+      {
+         
+       }
    },
    async  getGoogleApi(event)
     {
@@ -146,6 +163,8 @@ methods:{
      const resp =  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.name},+CA&key=AIzaSyDFeMlNRXL-3LlO5c3ncdpZXGpTr69fGm4`)
        this.name = ''
     resp.then(r=>{r.json().then(r=> console.log('addres',r))})
+    
+
     
     },
     

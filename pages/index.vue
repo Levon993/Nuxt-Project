@@ -7,7 +7,7 @@
         <h3>{{offer.title}}</h3>
       </template>
       <template #img>
-        <img class="imag"  :src="'http://shop.laravel.loc/storage/images/'+offer.img" alt="">
+        <img class="imag"  :src="`${$axios.defaults.baseURL}/storage/images/`+offer.img" alt="">
       </template>
       <template #text>
         <p class="offer_desc">
@@ -40,11 +40,11 @@
        </div>
         <div class="about_item">
         <img class="png_about" :src="require('@/assets/icons/rebbit.png')">
-        <p>Не только для людей</p>
+        <p>Корма для животных</p>
        </div>
         <div class="about_item">
         <img class="png_about" :src="require('@/assets/icons/child.png')">
-        <p>Не только для взросых</p>
+        <p>Всё для детей</p>
        </div>
       </div>
       </div>

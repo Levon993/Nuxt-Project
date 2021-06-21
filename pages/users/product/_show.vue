@@ -3,7 +3,7 @@
     <div  class="show_container">
             <div v-if="loader" class="lds-ring"><div></div><div></div><div></div><div></div></div>
         <div class="show_product">       
-           <img  :src="require(`@/assets/img/${data.img}`)" alt="">
+           <img  :src="`${$axios.defaults.baseURL}/storage/images/`+data.img" alt="">
         <div class="desc">
             <div class="show_product_title"><p>{{data.description}}</p></div>
            <div class="show_product_prices">
@@ -19,7 +19,7 @@
       <div class="rec_text">Рекомендуем</div>
       <div class="recomended_items">
         <div v-for="product in recomendations.data" :key="product.id" class="recomended_item">
-         <img :src="require(`@/assets/img/${product.img}`)" alt="">
+         <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
      <p>{{product.description}}</p>
      <div class="rec_prices">
      <p class="rec_price">{{product.price}} р</p>
@@ -36,7 +36,7 @@
       <div class="rec_text">Хиты Продаж</div>
       <div class="hit_items">
         <div v-for="product in hits.data" :key="product.id" class="hit_item">
-         <img :src="require(`@/assets/img/${product.img}`)" alt="">
+         <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
          <p>{{product.description}}</p>
         <div class="rec_prices">
         <p class="rec_price">{{product.price}} р</p>

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="close" @click="close">X</div>
      <div class="details_body">
-       <img :src="require(`@/assets/img/${product.img}`)" alt="">
+       <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
         <div class="form">
 <div class="foem_item">
     <h1>Редактирование</h1>

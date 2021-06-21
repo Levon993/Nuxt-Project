@@ -132,7 +132,7 @@ export default {
   }
   },
   env: {
-    baseUrl:env.baseURL || 'url' 
+    baseUrl:env.baseURL || 'http://shop.laravel.loc' 
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

@@ -11,7 +11,7 @@
   </div>    
   <div class="items">
     <div @click="goProductPage(product.id)" v-for="product in data" :key="product.id" class="item">
-     <img :src="require(`@/assets/img/${product.img}`)" alt="">
+     <img :src="`${$axios.defaults.baseURL}/storage/images/`+product.img" alt="">
      <p>{{product.description}}</p>
      <div class="prices">
      <p class="price">{{product.price}} р</p>
